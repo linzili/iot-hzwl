@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="/opt/homebrew/opt/gradle/libexec" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/iot-framework" />
+            <option value="$PROJECT_DIR$/iot-framework/iot-common" />
+            <option value="$PROJECT_DIR$/iot-framework/iot-spring-boot-starter-mybatis" />
+            <option value="$PROJECT_DIR$/iot-framework/iot-spring-boot-starter-web" />
+            <option value="$PROJECT_DIR$/iot-module-system" />
+            <option value="$PROJECT_DIR$/iot-module-system/iot-module-system-api" />
+            <option value="$PROJECT_DIR$/iot-module-system/iot-module-system-biz" />
+            <option value="$PROJECT_DIR$/iot-server" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
