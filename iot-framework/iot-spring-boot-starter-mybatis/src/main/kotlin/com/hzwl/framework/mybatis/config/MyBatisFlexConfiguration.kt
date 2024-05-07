@@ -1,6 +1,6 @@
 package com.hzwl.framework.mybatis.config
 
-import com.hzwl.extensions.log
+import com.hzwl.framework.common.extensions.log
 import com.hzwl.framework.mybatis.core.handle.MyLogicDeleteProcessor
 import com.mybatisflex.core.FlexGlobalConfig
 import com.mybatisflex.core.audit.AuditManager
