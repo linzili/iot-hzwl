@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
     kotlin("kapt") version "1.9.23"
+    kotlin("plugin.noarg") version "1.9.23"
 }
 
 group = "com.hzwl"
@@ -16,6 +17,8 @@ repositories {
     maven { url = uri("https://maven.aliyun.com/repository/public/") }
     mavenCentral()
 }
+
+
 
 ext {
     set("mybatis-flex.version", "1.8.8")
@@ -34,10 +37,16 @@ subprojects {
         plugin("io.spring.dependency-management")
         plugin("org.jetbrains.kotlin.jvm")
         plugin("org.jetbrains.kotlin.plugin.spring")
+        plugin("org.jetbrains.kotlin.plugin.noarg")
         plugin("org.jetbrains.kotlin.kapt")
     }
     group = project.group
     version = project.version
+
+    noArg {
+        annotation("com.mybatisflex.annotation.Table")
+        invokeInitializers = true
+    }
 
     configure<JavaPluginExtension> {
         sourceCompatibility = JavaVersion.VERSION_21
