@@ -1,5 +1,6 @@
 package com.hzwl.iot.module.system.controller.dict
 
+import com.hzwl.framework.common.enums.CommonStatusEnum
 import com.hzwl.framework.web.pojo.R
 import com.hzwl.iot.module.system.dal.entity.dict.DictData
 import com.hzwl.iot.module.system.service.dict.DictDataService
@@ -24,7 +25,7 @@ class DictDataController(
     @PostMapping
     @Operation(summary = "保存字典数据")
     fun save(): R<DictData> {
-        return R.ok(DictData(1, 1, "1", "1", "1", 1, "1", "1", "1"))
+        return R.ok(DictData(1, 1, "1", "1", "1", CommonStatusEnum.ENABLE, "1", "1", "1"))
     }
 
 

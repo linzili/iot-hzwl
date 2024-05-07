@@ -1,5 +1,6 @@
 package com.hzwl.iot.module.system.dal.entity.dict
 
+import com.hzwl.framework.common.enums.CommonStatusEnum
 import com.hzwl.framework.mybatis.core.entity.BaseEntity
 import com.mybatisflex.annotation.Id
 import com.mybatisflex.annotation.KeyType
@@ -14,7 +15,7 @@ data class DictData(
     var label: String,
     var value: String,
     var dictType: String? = null,
-    var status: Int,
+    var status: CommonStatusEnum,
     var colorType: String? = null,
     var cssClass: String? = null,
     var remark: String? = null,
