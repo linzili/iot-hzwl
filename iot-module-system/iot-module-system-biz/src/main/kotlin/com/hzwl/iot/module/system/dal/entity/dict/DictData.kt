@@ -1,4 +1,4 @@
-package com.hzwl.iot.module.system.dal.entity
+package com.hzwl.iot.module.system.dal.entity.dict
 
 import com.hzwl.framework.mybatis.core.entity.BaseEntity
 import com.mybatisflex.annotation.Id
