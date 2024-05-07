@@ -7,7 +7,12 @@ spring:
     password: 22679efeb857e31f
     hikari:
       keepalive-time: 60000
-      connection-test-query: select 1d
+      connection-test-query: select 1
   threads:
     virtual:
       enabled: true
+  main:
+    banner-mode: off
+mybatis-flex:
+  global-config:
+    print-banner: false
