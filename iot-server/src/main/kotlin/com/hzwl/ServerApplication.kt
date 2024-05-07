@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-@MapperScan("com.hzwl.iot.module.*")
+@MapperScan
 class ServerApplication
 
 fun main(args: Array<String>) {
