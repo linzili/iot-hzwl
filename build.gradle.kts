@@ -48,6 +48,9 @@ subprojects {
         invokeInitializers = true
     }
 
+    configurations.all() {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+    }
     configure<JavaPluginExtension> {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
