@@ -1,8 +1,8 @@
 package com.hzwl.iot.module.system
 
 import com.hzwl.ServerApplication
-import com.hzwl.iot.module.system.dal.entity.DictData
-import com.hzwl.iot.module.system.dal.mapper.DictDataMapper
+import com.hzwl.iot.module.system.dal.entity.dict.DictData
+import com.hzwl.iot.module.system.dal.mapper.dict.DictDataMapper
 import jakarta.annotation.Resource
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -26,7 +26,7 @@ class DictDataTest {
 
     @Test
     fun select() {
-        println(dictDataMapper.selectOneById(1540).createTime)
+        println(dictDataMapper.selectOneById(1542).createTime)
     }
 
 
