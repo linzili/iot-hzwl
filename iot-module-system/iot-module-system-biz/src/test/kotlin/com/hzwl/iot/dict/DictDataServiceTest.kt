@@ -1,5 +1,7 @@
 package com.hzwl.iot.dict
 
+import com.hzwl.iot.common.enums.CommonStatusEnum
+import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataSaveReqVo
 import com.hzwl.iot.module.system.service.dict.DictDataService
 import jakarta.annotation.Resource
 import org.junit.jupiter.api.Test
@@ -16,7 +18,16 @@ class DictDataServiceTest {
     lateinit var dictDataService: DictDataService
 
     @Test
-    fun test() {
-        dictDataService.list()
+    fun create() {
+        dictDataService.createDictData(
+            DictDataSaveReqVo(
+                null,
+                1,
+                "男",
+                "男",
+                "sys_user_sex",
+                CommonStatusEnum.ENABLE
+            )
+        )
     }
 }

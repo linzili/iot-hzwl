@@ -15,17 +15,17 @@ open class BaseEntity(
     var creator: String? = null,
 
     @Column(comment = "创建时间", onInsertValue = "now()")
-    var createTime: LocalDateTime? = null,
+    val createTime: LocalDateTime? = null,
 
     @Column(comment = "更新者")
     var updater: String? = null,
 
     @Column(comment = "更新时间", onUpdateValue = "now()")
-    var updateTime: LocalDateTime? = null,
+    val updateTime: LocalDateTime? = null,
 
     @Column(comment = "是否删除")
-    var deleted: Boolean = false,
+    val deleted: Boolean = false,
 
     @Column(comment = "删除时间")
-    var deleteTime: LocalDateTime? = null,
+    val deleteTime: LocalDateTime? = null,
 ) : Serializable

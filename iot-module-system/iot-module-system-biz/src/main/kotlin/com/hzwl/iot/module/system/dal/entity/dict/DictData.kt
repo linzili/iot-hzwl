@@ -1,31 +1,31 @@
 package com.hzwl.iot.module.system.dal.entity.dict
 
-import com.hzwl.framework.common.enums.CommonStatusEnum
-import com.hzwl.framework.mybatis.core.entity.BaseEntity
+import com.hzwl.iot.common.enums.CommonStatusEnum
+import com.hzwl.iot.framework.mybatis.core.entity.BaseEntity
 import com.mybatisflex.annotation.Id
 import com.mybatisflex.annotation.KeyType
 import com.mybatisflex.annotation.Table
+import com.mybatisflex.core.keygen.KeyGenerators
 
 @Table("system_dict_data", comment = "字典数据表")
 data class DictData(
 
-    @Id(keyType = KeyType.Auto)
-    var id: Long,
+    @Id(keyType = KeyType.Generator, value = KeyGenerators.snowFlakeId)
+    var id: Long?,
 
-    var sort: Int,
+    val sort: Int,
 
-    var label: String,
+    val label: String,
 
-    var value: String,
+    val value: String,
 
-    var dictType: String,
+    val dictType: String,
 
-    var status: CommonStatusEnum,
+    val status: CommonStatusEnum? = null,
 
-    var colorType: String? = null,
+    val colorType: String? = null,
 
-    var cssClass: String? = null,
+    val cssClass: String? = null,
 
-    var remark: String? = null,
-
+    val remark: String? = null,
 ) : BaseEntity()
