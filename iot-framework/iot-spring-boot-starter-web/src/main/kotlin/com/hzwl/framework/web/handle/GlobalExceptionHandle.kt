@@ -1,7 +1,10 @@
 package com.hzwl.framework.web.handle
 
+import com.hzwl.framework.common.exception.ServiceException
+import com.hzwl.framework.common.exception.enums.GlobalErrorCodeConstants.INTERNAL_SERVER_ERROR
 import com.hzwl.framework.common.extensions.log
 import com.hzwl.framework.web.pojo.R
+import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.ConstraintViolation
 import jakarta.validation.ConstraintViolationException
 import org.springframework.validation.BindException
@@ -70,5 +73,25 @@ class GlobalExceptionHandle {
         return R.fail(
             java.lang.String.format("请求参数不正确:%s", constraintViolation.getMessage())
         )
+    }
+
+    /**
+     * 处理业务异常 ServiceException
+     *
+     * 例如说，商品库存不足，用户手机号已存在。
+     */
+    @ExceptionHandler(value = [ServiceException::class])
+    fun serviceExceptionHandler(ex: ServiceException): R<*> {
+        log.info("[serviceExceptionHandler]", ex)
+        return R.fail(ex.code, ex.message)
+    }
+
+    /**
+     * 处理系统异常，兜底处理所有的一切
+     */
+    @ExceptionHandler(value = [Exception::class])
+    fun defaultExceptionHandler(req: HttpServletRequest?, ex: Throwable?): R<*> {
+        log.error("[defaultExceptionHandler]", ex)
+        return R.fail(INTERNAL_SERVER_ERROR.code, INTERNAL_SERVER_ERROR.message)
     }
 }
