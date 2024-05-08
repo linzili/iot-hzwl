@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonValue
 enum class CommonStatusEnum(
     @JsonValue
     override val value: Int,
-    val label: String,
+    val description: String,
 ) : IEnum<Int> {
     ENABLE(0, "启用"),
     DISABLE(1, "禁用"),

@@ -11,12 +11,21 @@ data class DictData(
 
     @Id(keyType = KeyType.Auto)
     var id: Long,
-    var sort: Long,
+
+    var sort: Int,
+
     var label: String,
+
     var value: String,
-    var dictType: String? = null,
+
+    var dictType: String,
+
     var status: CommonStatusEnum,
+
     var colorType: String? = null,
+
     var cssClass: String? = null,
+
     var remark: String? = null,
+
 ) : BaseEntity()
