@@ -72,20 +72,26 @@ subprojects {
         }
         test { useJUnitPlatform() }
     }
+
+
     dependencyManagement {
         dependencies {
             dependency("io.github.linpeilie:mapstruct-plus-spring-boot-starter:${rootProject.ext["mapstruct-plus.version"]}")
             dependency("io.github.linpeilie:mapstruct-plus-processor:${rootProject.ext["mapstruct-plus.version"]}")
             dependency("com.mybatis-flex:mybatis-flex-spring-boot3-starter:${rootProject.ext["mybatis-flex.version"]}")
+            dependency("com.mybatis-flex:mybatis-flex-core:${rootProject.ext["mybatis-flex.version"]}")
             dependency("com.mybatis-flex:mybatis-flex-processor:${rootProject.ext["mybatis-flex.version"]}")
             dependency("com.mybatis-flex:mybatis-flex-kotlin-extensions:${rootProject.ext["mybatis-flex-kotlin.version"]}")
             dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:${rootProject.ext["springdoc.version"]}")
             dependency("cn.hutool:hutool-all:${rootProject.ext["hutool.version"]}")
             dependency("com.alibaba:transmittable-thread-local:${rootProject.ext["transmittable-thread-local.version"]}")
-
             dependency("cn.dev33:sa-token-spring-boot-starter:${rootProject.ext["sa-token.version"]}")
 
         }
+    }
+    dependencies {
+        kapt("com.mybatis-flex:mybatis-flex-processor")
+        kapt("io.github.linpeilie:mapstruct-plus-processor")
     }
 }
 

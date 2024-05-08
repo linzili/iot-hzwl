@@ -8,4 +8,5 @@ dependencies {
     api("com.fasterxml.jackson.core:jackson-core")
     api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     api("com.fasterxml.jackson.module:jackson-module-kotlin")
+    api("com.mybatis-flex:mybatis-flex-core")
 }
