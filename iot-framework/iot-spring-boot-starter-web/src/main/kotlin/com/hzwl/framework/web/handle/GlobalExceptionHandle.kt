@@ -49,8 +49,9 @@ class GlobalExceptionHandle {
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun methodArgumentNotValidExceptionExceptionHandler(ex: MethodArgumentNotValidException): R<*> {
         log.warn("[methodArgumentNotValidExceptionExceptionHandler]", ex)
-        val fieldError = checkNotNull(ex.bindingResult.fieldError)
-        return R.fail(String.format("请求参数不正确:%s", fieldError.defaultMessage))
+//        val fieldError = checkNotNull(ex.bindingResult.fieldError)
+//        return R.fail(String.format("请求参数不正确:%s", fieldError.defaultMessage))
+        return R.fail(String.format("请求参数不正确"))
     }
 
     /**
@@ -59,8 +60,9 @@ class GlobalExceptionHandle {
     @ExceptionHandler(BindException::class)
     fun bindExceptionHandler(ex: BindException): R<*> {
         log.warn("[handleBindException]", ex)
-        val fieldError = checkNotNull(ex.fieldError)
-        return R.fail(String.format("请求参数不正确:%s", fieldError.defaultMessage))
+//        val fieldError = checkNotNull(ex.fieldError)
+//        return R.fail(String.format("请求参数不正确:%s", fieldError.defaultMessage))
+        return R.fail(String.format("请求参数不正确"))
     }
 
     /**
