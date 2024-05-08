@@ -1,6 +1,7 @@
 dependencies {
+    api("org.springframework.boot:spring-boot-starter-aop")
+    api("org.springframework.boot:spring-boot-starter-log4j2")
     api("io.github.linpeilie:mapstruct-plus-spring-boot-starter")
-    api("org.apache.logging.log4j:log4j-slf4j-impl")
     api("cn.hutool:hutool-all")
     api("com.alibaba:transmittable-thread-local")
     api("com.fasterxml.jackson.core:jackson-databind")
