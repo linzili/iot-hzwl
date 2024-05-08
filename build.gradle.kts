@@ -66,7 +66,7 @@ subprojects {
         withType(JavaCompile::class) { options.encoding = "UTF-8" }
         withType(KotlinCompile::class) {
             kotlinOptions {
-                freeCompilerArgs += "-Xjsr305=strict"
+                freeCompilerArgs += listOf("-Xjsr305=strict", "-Xjvm-default=all")
                 jvmTarget = "21"
             }
         }
