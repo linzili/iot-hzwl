@@ -1,6 +1,6 @@
 package com.hzwl.iot.module.system.controller.dict
 
-import com.hzwl.iot.common.exception.ServiceException
+import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.common.pojo.PageResult
 import com.hzwl.iot.framework.web.pojo.R
@@ -61,7 +61,7 @@ class DictDataController(
     @Parameter(name = "id", description = "字典数据编号", required = true, example = "1024")
     fun getDictData(@PathVariable("id") id: Long): R<DictDataRespVO> {
         val dictData = dictDataService.getById(id)
-            ?: throw ServiceException(ErrorCodeConstants.DICT_DATA_NOT_EXISTS)
+            ?: throw exception(ErrorCodeConstants.DICT_DATA_NOT_EXISTS)
         return ok(convert(dictData, DictDataRespVO::class.java))
     }
 

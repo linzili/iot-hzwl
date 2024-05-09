@@ -1,6 +1,6 @@
 package com.hzwl.iot.module.system.service.dict
 
-import com.hzwl.iot.common.exception.ServiceException
+import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.common.pojo.PageResult
 import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataPageReqVo
@@ -88,8 +88,8 @@ class DictDataServiceImpl : ServiceImpl<DictDataMapper, DictData>(), DictDataSer
      * @param id
      */
     private fun validateDictDataExists(id: Long?) {
-        if (id == null) throw ServiceException(DICT_DATA_NOT_EXISTS)
-        getById(id) ?: throw ServiceException(DICT_DATA_NOT_EXISTS)
+        if (id == null) throw exception(DICT_DATA_NOT_EXISTS)
+        getById(id) ?: throw exception(DICT_DATA_NOT_EXISTS)
     }
 
     /**
@@ -111,7 +111,7 @@ class DictDataServiceImpl : ServiceImpl<DictDataMapper, DictData>(), DictDataSer
     fun validateDictDataValueUnique(id: Long?, dictType: String, value: String) {
         val dictData = mapper.selectByDictTypeAndValue(dictType, value) ?: return
         if (id == null || id != dictData.id) {
-            throw ServiceException(DICT_DATA_VALUE_DUPLICATE)
+            throw exception(DICT_DATA_VALUE_DUPLICATE)
         }
     }
 
