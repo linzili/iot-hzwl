@@ -2,14 +2,15 @@ package com.hzwl.iot.module.system.dal.entity.dict
 
 import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.framework.mybatis.core.entity.BaseEntity
+import com.hzwl.iot.framework.mybatis.listener.UpdateEventListener
 import com.mybatisflex.annotation.Id
 import com.mybatisflex.annotation.KeyType
 import com.mybatisflex.annotation.Table
 import com.mybatisflex.core.keygen.KeyGenerators
 
-@Table("system_dict_data", comment = "字典数据表")
-data class DictData(
 
+@Table("system_dict_data", comment = "字典数据表", onUpdate = [UpdateEventListener::class])
+data class DictData(
     @Id(keyType = KeyType.Generator, value = KeyGenerators.snowFlakeId)
     var id: Long?,
 
@@ -29,3 +30,4 @@ data class DictData(
 
     val remark: String? = null,
 ) : BaseEntity()
+

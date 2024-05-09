@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 import java.io.Serializable
 
-@Schema(description = "管理后台 - 字段数据创建/修改 Request VO")
+@Schema(description = "管理后台 - 字典数据创建/修改 Request VO")
 @AutoMapper(target = DictData::class)
 data class DictDataSaveReqVo(
 

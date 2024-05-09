@@ -5,9 +5,8 @@ import com.hzwl.iot.module.system.dal.entity.dict.DictData
 import io.github.linpeilie.annotations.AutoMapper
 import io.github.linpeilie.annotations.ReverseAutoMapping
 import io.swagger.v3.oas.annotations.media.Schema
-import java.io.Serializable
 
-@Schema(description = "管理后台 - 字段数据信息 Response VO")
+@Schema(description = "管理后台 - 字典数据信息 Response VO")
 @AutoMapper(target = DictData::class)
 data class DictDataRespVO(
 
@@ -41,4 +40,4 @@ data class DictDataRespVO(
     @Schema(description = "创建时间", example = "2020-10-09 00:00:00")
     @ReverseAutoMapping(dateFormat = "yyyy-MM-dd HH:mm:ss")
     var createTime: String,
-) : Serializable
+)
