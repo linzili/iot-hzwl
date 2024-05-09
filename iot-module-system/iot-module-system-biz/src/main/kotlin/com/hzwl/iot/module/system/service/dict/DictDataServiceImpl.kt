@@ -28,7 +28,7 @@ class DictDataServiceImpl : ServiceImpl<DictDataMapper, DictData>(), DictDataSer
 
         validateDictDataValueUnique(null, createReqVo.dictType, createReqVo.value!!)
 
-        val dictData = convert.convert(createReqVo, DictData::class.java)
+        val dictData = convert(createReqVo, DictData::class.java)
         save(dictData)
         return dictData.id!!
     }
@@ -46,7 +46,7 @@ class DictDataServiceImpl : ServiceImpl<DictDataMapper, DictData>(), DictDataSer
 
         validateDictDataValueUnique(updateReqVo.id, updateReqVo.dictType, updateReqVo.value!!)
 
-        val dictData = convert.convert(updateReqVo, DictData::class.java)
+        val dictData = convert(updateReqVo, DictData::class.java)
 
         return updateById(dictData)
     }
@@ -79,7 +79,7 @@ class DictDataServiceImpl : ServiceImpl<DictDataMapper, DictData>(), DictDataSer
      * @param pageReqVo 分页参数
      */
     override fun getDictDataPage(pageReqVo: DictDataPageReqVo): PageResult<DictDataRespVO> {
-       return mapper.selectPage(pageReqVo)
+        return mapper.selectPage(pageReqVo)
     }
 
     /**

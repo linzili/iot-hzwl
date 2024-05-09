@@ -13,7 +13,6 @@ import com.hzwl.iot.module.system.enums.ErrorCodeConstants
 import com.hzwl.iot.module.system.service.dict.DictDataService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
-import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.*
 
@@ -30,22 +29,20 @@ class DictDataController(
 
     @PostMapping
     @Operation(summary = "新增字典数据")
-    @ApiResponse(description = "字典数据编号")
-    fun createDictData(@RequestBody createReqVo: DictDataSaveReqVo): R<Long> {
-        val dictDataId = dictDataService.createDictData(createReqVo)
-        return ok(dictDataId)
-    }
+    fun createDictData(@RequestBody createReqVo: DictDataSaveReqVo): R<Long> =
+        ok(dictDataService.createDictData(createReqVo))
+
 
     @PutMapping
     @Operation(summary = "修改字典数据")
     fun updateDictData(@RequestBody updateReqVo: DictDataSaveReqVo): R<Boolean> =
-        ok(dictDataService.updateDictData(updateReqVo));
+        ok(dictDataService.updateDictData(updateReqVo))
 
     @DeleteMapping("/{id}")
     @Operation(summary = "删除字典数据")
     @Parameter(name = "id", description = "字典数据编号", required = true, example = "1024")
     fun deleteDictData(@PathVariable("id") id: Long): R<Boolean> =
-        ok(dictDataService.deleteDictData(id));
+        ok(dictDataService.deleteDictData(id))
 
 
     @GetMapping("list-all-simple")
@@ -65,7 +62,7 @@ class DictDataController(
     fun getDictData(@PathVariable("id") id: Long): R<DictDataRespVO> {
         val dictData = dictDataService.getById(id)
             ?: throw ServiceException(ErrorCodeConstants.DICT_DATA_NOT_EXISTS)
-        return ok(convert.convert(dictData, DictDataRespVO::class.java))
+        return ok(convert(dictData, DictDataRespVO::class.java))
     }
 
 }
