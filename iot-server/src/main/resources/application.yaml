@@ -16,3 +16,9 @@ spring:
 mybatis-flex:
   global-config:
     print-banner: false
+
+springdoc:
+  group-configs:
+    - group: "system-module"
+      paths-to-match:
+        - "/system/**"
