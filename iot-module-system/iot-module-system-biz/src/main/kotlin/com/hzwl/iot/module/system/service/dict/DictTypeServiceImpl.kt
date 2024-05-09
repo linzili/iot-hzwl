@@ -29,6 +29,33 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
     }
 
     /**
+     * 修改字典类型
+     *
+     * @param updateReqVo 字典类型信息
+     * @return 是否成功
+     */
+    override fun updateDictType(updateReqVo: DictTypeSaveReqVO): Boolean {
+        validateDictTypeExists(updateReqVo.id)
+        validateDictTypeNameUnique(updateReqVo.id, updateReqVo.name!!)
+        validateDictTypeUnique(updateReqVo.id, updateReqVo.type!!)
+
+        val dictType = convert(updateReqVo, DictType::class.java)
+        return updateById(dictType)
+    }
+
+
+    /**
+     * 校验字典类型是否存在
+     *
+     * @param id 字典类型编号
+     */
+    private fun validateDictTypeExists(id: Long?): DictType {
+        id?.let {
+            return getById(it) ?: throw exception(ErrorCodeConstants.DICT_TYPE_NOT_EXISTS)
+        } ?: throw exception(ErrorCodeConstants.DICT_TYPE_NOT_EXISTS)
+    }
+
+    /**
      * 校验字典类型是否唯一
      *
      * @param id 字典类型编号

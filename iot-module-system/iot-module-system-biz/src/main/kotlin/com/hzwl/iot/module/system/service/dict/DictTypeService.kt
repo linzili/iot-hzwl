@@ -13,4 +13,12 @@ interface DictTypeService : IService<DictType> {
      * @return 字典类型编号
      */
     fun createDictType(createReqVo: DictTypeSaveReqVO): Long
+
+    /**
+     * 修改字典类型
+     *
+     * @param updateReqVo 字典类型信息
+     * @return 是否成功
+     */
+    fun updateDictType(updateReqVo: DictTypeSaveReqVO): Boolean
 }
