@@ -45,9 +45,7 @@ class DictDataServiceTest {
 
     @Test
     fun testUpdate() {
-//        dictDataService.updateDictData(DictDataSaveReqVo(1543, 1, "男", "asd", "sys_user_sex", CommonStatusEnum.ENABLE))
         val dictDataMapper: DictDataMapper = mapper()
-
 
         val dictData = DictData(value = "dajio", label = "djwoaidji", sort = 1, dictType = "sys_user_sex", id = null)
         dictDataMapper.updateByCondition(dictData, (DictData::id eq 1543))
