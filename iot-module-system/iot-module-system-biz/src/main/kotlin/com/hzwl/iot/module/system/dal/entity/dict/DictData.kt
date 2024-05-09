@@ -12,7 +12,7 @@ import com.mybatisflex.core.keygen.KeyGenerators
 @Table("system_dict_data", comment = "字典数据表", onUpdate = [UpdateEventListener::class])
 data class DictData(
     @Id(keyType = KeyType.Generator, value = KeyGenerators.snowFlakeId)
-    var id: Long?,
+    var id: Long? = null,
 
     val sort: Int,
 
