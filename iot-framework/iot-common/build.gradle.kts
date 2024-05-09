@@ -9,4 +9,5 @@ dependencies {
     api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     api("com.fasterxml.jackson.module:jackson-module-kotlin")
     api("com.mybatis-flex:mybatis-flex-core")
+    api("org.springdoc:springdoc-openapi-starter-webmvc-ui")
 }
