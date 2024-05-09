@@ -27,5 +27,5 @@ open class BaseEntity(
     val deleted: Boolean = false,
 
     @Column(comment = "删除时间")
-    val deleteTime: LocalDateTime? = null,
+    val deletedTime: LocalDateTime? = null,
 ) : Serializable
