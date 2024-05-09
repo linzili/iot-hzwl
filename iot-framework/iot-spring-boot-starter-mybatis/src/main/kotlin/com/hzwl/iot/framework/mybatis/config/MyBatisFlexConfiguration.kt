@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration
  *
  */
 @Configuration
-class MyBatisFlexConfiguration() {
+class MyBatisFlexConfiguration {
     init {
         AuditManager.setAuditEnable(true)
 

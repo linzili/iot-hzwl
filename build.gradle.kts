@@ -48,7 +48,7 @@ subprojects {
         invokeInitializers = true
     }
 
-    configurations.all() {
+    configurations.all {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
     }
     configure<JavaPluginExtension> {

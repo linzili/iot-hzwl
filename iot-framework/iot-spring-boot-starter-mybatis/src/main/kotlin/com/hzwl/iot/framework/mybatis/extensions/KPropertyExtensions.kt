@@ -5,4 +5,4 @@ import com.mybatisflex.kotlin.extensions.kproperty.column
 import kotlin.reflect.KProperty
 
 infix fun KProperty<String>.like(other: Any?): QueryCondition =
-    other?.let { column.like(it) } ?: QueryCondition.createEmpty();
+    other?.let { column.like(it) } ?: QueryCondition.createEmpty()
