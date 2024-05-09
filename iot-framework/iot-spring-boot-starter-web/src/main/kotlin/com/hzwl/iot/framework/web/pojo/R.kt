@@ -1,23 +1,23 @@
 package com.hzwl.iot.framework.web.pojo
 
 import io.swagger.v3.oas.annotations.media.Schema
-import java.io.Serializable
 
 /**
  * 通用返回
  * @author lin
  */
-@Schema(name = "result", description = "统一返回")
+@Schema(description = "通用返回")
 data class R<T>(
 
-    @Schema(description = "状态码 成功: 200, 失败: 500")
+    @Schema(description = "状态编码 200-成功，非200 -> 失败", required = true, defaultValue = "200")
     var code: Int = 200,
 
-    @Schema(description = "消息")
-    var msg: String = "success",
+    @Schema(description = "提示消息", required = true, defaultValue = "ok")
+    var msg: String = "ok",
 
+    @Schema(description = "响应数据", required = true)
     var data: T? = null
-) : Serializable {
+)  {
 
     companion object {
         /**
