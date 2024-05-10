@@ -5,12 +5,9 @@ import com.hzwl.iot.framework.web.pojo.R.Companion.ok
 import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypeSaveReqVO
 import com.hzwl.iot.module.system.service.dict.DictTypeService
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 /**
@@ -34,4 +31,11 @@ class DictTypeController(
     @Operation(summary = "修改字典类型")
     fun updateDictType(@RequestBody updateReqVo: DictTypeSaveReqVO): R<Boolean> =
         ok(dictTypeService.updateDictType(updateReqVo))
+
+
+    @DeleteMapping("{id}")
+    @Operation(summary = "删除字典类型")
+    @Parameter(description = "字典类型编号", name = "id", required = true, example = "1024")
+    fun deleteDictType(@PathVariable("id") id: Long): R<Boolean> =
+        ok(dictTypeService.deleteDictType(id))
 }

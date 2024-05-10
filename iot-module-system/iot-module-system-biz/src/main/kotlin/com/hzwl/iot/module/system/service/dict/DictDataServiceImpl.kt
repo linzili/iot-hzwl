@@ -23,12 +23,12 @@ class DictDataServiceImpl : ServiceImpl<DictDataMapper, DictData>(), DictDataSer
      * @return 字典数据编号
      */
     override fun createDictData(createReqVo: DictDataSaveReqVo): Long {
-
         validateDictTypeExists(createReqVo.dictType!!)
 
         validateDictDataValueUnique(null, createReqVo.dictType, createReqVo.value!!)
 
         val dictData = convert(createReqVo, DictData::class.java)
+        dictData.id = null
         save(dictData)
         return dictData.id!!
     }

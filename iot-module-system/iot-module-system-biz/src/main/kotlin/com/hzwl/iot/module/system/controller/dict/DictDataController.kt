@@ -38,7 +38,7 @@ class DictDataController(
     fun updateDictData(@RequestBody updateReqVo: DictDataSaveReqVo): R<Boolean> =
         ok(dictDataService.updateDictData(updateReqVo))
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     @Operation(summary = "删除字典数据")
     @Parameter(name = "id", description = "字典数据编号", required = true, example = "1024")
     fun deleteDictData(@PathVariable("id") id: Long): R<Boolean> =
@@ -56,7 +56,7 @@ class DictDataController(
         ok(dictDataService.getDictDataPage(pageReqVo))
 
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     @Operation(summary = "查询字典数据详情")
     @Parameter(name = "id", description = "字典数据编号", required = true, example = "1024")
     fun getDictData(@PathVariable("id") id: Long): R<DictDataRespVO> {

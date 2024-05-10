@@ -2,6 +2,8 @@ package com.hzwl.iot.module.system.service.dict
 
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
+import com.hzwl.iot.common.utils.SpringContextUtil
+import com.hzwl.iot.framework.mybatis.events.EntityDeleteEvent
 import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypeSaveReqVO
 import com.hzwl.iot.module.system.dal.entity.dict.DictType
 import com.hzwl.iot.module.system.dal.mapper.dict.DictTypeMapper
@@ -24,6 +26,7 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
 
         validateDictTypeUnique(null, createReqVo.type!!)
         val dictType = convert(createReqVo, DictType::class.java)
+        dictType.id = null
         save(dictType)
         return dictType.id!!
     }
@@ -41,6 +44,20 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
 
         val dictType = convert(updateReqVo, DictType::class.java)
         return updateById(dictType)
+    }
+
+    /**
+     * 删除字典类型
+     *
+     * @param id 字典类型编号
+     * @return
+     */
+    override fun deleteDictType(id: Long): Boolean {
+        val dictType = validateDictTypeExists(id)
+
+        SpringContextUtil.eventPublisher.publishEvent(EntityDeleteEvent(dictType))
+
+        return removeById(id)
     }
 
 

@@ -21,4 +21,12 @@ interface DictTypeService : IService<DictType> {
      * @return 是否成功
      */
     fun updateDictType(updateReqVo: DictTypeSaveReqVO): Boolean
+
+    /**
+     * 删除字典类型
+     *
+     * @param id 字典类型编号
+     * @return
+     */
+    fun deleteDictType(id: Long): Boolean
 }
