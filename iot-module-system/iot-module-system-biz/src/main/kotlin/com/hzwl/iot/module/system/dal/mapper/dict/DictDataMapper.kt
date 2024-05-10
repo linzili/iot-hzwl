@@ -63,9 +63,7 @@ interface DictDataMapper : BaseMapper<DictData> {
      * @return 字典数据
      */
     fun selectPage(pageReqVo: DictDataPageReqVo): PageResult<DictDataRespVO> {
-        return paginateAs<DictDataRespVO>(
-            pageReqVo
-        ) {
+        return paginateAs<DictDataRespVO>(pageReqVo) {
             select(
                 DictData::id,
                 DictData::sort,
