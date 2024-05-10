@@ -24,7 +24,7 @@ open class BaseEntity(
     val updateTime: LocalDateTime? = null,
 
     @Column(comment = "是否删除")
-    val deleted: Boolean = false,
+    val deleted: Boolean? = null,
 
     @Column(comment = "删除时间")
     val deletedTime: LocalDateTime? = null,
