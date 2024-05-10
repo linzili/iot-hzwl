@@ -2,8 +2,11 @@ package com.hzwl.iot.module.system.service.dict
 
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
+import com.hzwl.iot.common.pojo.PageResult
 import com.hzwl.iot.common.utils.SpringContextUtil
 import com.hzwl.iot.framework.mybatis.events.EntityDeleteEvent
+import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypePageReqVO
+import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypeRespVO
 import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypeSaveReqVO
 import com.hzwl.iot.module.system.dal.entity.dict.DictType
 import com.hzwl.iot.module.system.dal.mapper.dict.DictTypeMapper
@@ -58,6 +61,16 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
         SpringContextUtil.eventPublisher.publishEvent(EntityDeleteEvent(dictType))
 
         return removeById(id)
+    }
+
+    /**
+     * 获得字典类型分页列表
+     *
+     * @param pageReqVO 分页参数
+     * @return
+     */
+    override fun getDictTypePage(pageReqVO: DictTypePageReqVO): PageResult<DictTypeRespVO> {
+        return mapper.selectPage(pageReqVO)
     }
 
 

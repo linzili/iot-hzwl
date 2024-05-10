@@ -1,7 +1,10 @@
 package com.hzwl.iot.module.system.controller.dict
 
+import com.hzwl.iot.common.pojo.PageResult
 import com.hzwl.iot.framework.web.pojo.R
 import com.hzwl.iot.framework.web.pojo.R.Companion.ok
+import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypePageReqVO
+import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypeRespVO
 import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypeSaveReqVO
 import com.hzwl.iot.module.system.service.dict.DictTypeService
 import io.swagger.v3.oas.annotations.Operation
@@ -38,4 +41,9 @@ class DictTypeController(
     @Parameter(description = "字典类型编号", name = "id", required = true, example = "1024")
     fun deleteDictType(@PathVariable("id") id: Long): R<Boolean> =
         ok(dictTypeService.deleteDictType(id))
+
+    @GetMapping("page")
+    @Operation(summary = "获得字典类型的分页列表")
+    fun getDictTypePage(pageReqVO: DictTypePageReqVO): R<PageResult<DictTypeRespVO>> =
+        ok(dictTypeService.getDictTypePage(pageReqVO))
 }
