@@ -2,9 +2,12 @@ package com.hzwl.iot.module.system.handler.dict
 
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.framework.mybatis.events.EntityDeleteEvent
+import com.hzwl.iot.framework.mybatis.events.EntitySaveEvent
+import com.hzwl.iot.framework.mybatis.events.EntityUpdateEvent
 import com.hzwl.iot.module.system.dal.entity.dict.DictData
 import com.hzwl.iot.module.system.dal.entity.dict.DictType
 import com.hzwl.iot.module.system.enums.ErrorCodeConstants
+import com.mybatisflex.kotlin.extensions.db.update
 import com.mybatisflex.kotlin.extensions.kproperty.eq
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
@@ -27,4 +30,5 @@ class DictDataEventHandle {
             throw exception(ErrorCodeConstants.DICT_TYPE_HAS_CHILDREN)
         }
     }
+
 }

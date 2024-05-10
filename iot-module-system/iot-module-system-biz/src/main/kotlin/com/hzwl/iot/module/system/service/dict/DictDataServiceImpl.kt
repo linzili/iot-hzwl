@@ -8,9 +8,12 @@ import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataRespVO
 import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataSaveReqVo
 import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataSimpleRespVO
 import com.hzwl.iot.module.system.dal.entity.dict.DictData
+import com.hzwl.iot.module.system.dal.entity.dict.DictType
 import com.hzwl.iot.module.system.dal.mapper.dict.DictDataMapper
+import com.hzwl.iot.module.system.enums.ErrorCodeConstants
 import com.hzwl.iot.module.system.enums.ErrorCodeConstants.DICT_DATA_NOT_EXISTS
 import com.hzwl.iot.module.system.enums.ErrorCodeConstants.DICT_DATA_VALUE_DUPLICATE
+import com.mybatisflex.kotlin.extensions.kproperty.eq
 import com.mybatisflex.spring.service.impl.ServiceImpl
 import org.springframework.stereotype.Service
 
@@ -98,7 +101,9 @@ class DictDataServiceImpl : ServiceImpl<DictDataMapper, DictData>(), DictDataSer
      * @param dictType 字典数据类型
      */
     fun validateDictTypeExists(dictType: String) {
-
+        if (DictType.selectCountByCondition(DictType::type eq dictType) == 0L) {
+            throw exception(ErrorCodeConstants.DICT_TYPE_NOT_EXISTS)
+        }
     }
 
     /**
