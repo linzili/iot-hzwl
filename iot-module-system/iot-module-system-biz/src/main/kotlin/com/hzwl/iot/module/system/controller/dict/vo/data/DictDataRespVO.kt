@@ -1,13 +1,9 @@
 package com.hzwl.iot.module.system.controller.dict.vo.data
 
 import com.hzwl.iot.common.enums.CommonStatusEnum
-import com.hzwl.iot.module.system.dal.entity.dict.DictData
-import io.github.linpeilie.annotations.AutoMapper
-import io.github.linpeilie.annotations.ReverseAutoMapping
 import io.swagger.v3.oas.annotations.media.Schema
 
 @Schema(description = "管理后台 - 字典数据信息 Response VO")
-@AutoMapper(target = DictData::class)
 data class DictDataRespVO(
 
     @Schema(description = "字典数据编号", example = "1024")
@@ -38,6 +34,5 @@ data class DictDataRespVO(
     val remark: String? = null,
 
     @Schema(description = "创建时间", example = "2020-10-09 00:00:00")
-    @ReverseAutoMapping(dateFormat = "yyyy-MM-dd HH:mm:ss")
     var createTime: String,
 )
