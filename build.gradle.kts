@@ -48,6 +48,9 @@ subprojects {
         invokeInitializers = true
     }
 
+    allOpen {
+        annotation("com.mybatisflex.annotation.Table")
+    }
     configurations.all {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
     }

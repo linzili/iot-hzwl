@@ -6,6 +6,7 @@ import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataSaveReqVo
 import com.hzwl.iot.module.system.dal.entity.dict.DictData
 import com.hzwl.iot.module.system.dal.mapper.dict.DictDataMapper
 import com.hzwl.iot.module.system.service.dict.DictDataService
+import com.mybatisflex.core.update.UpdateChain
 import com.mybatisflex.kotlin.extensions.db.mapper
 import com.mybatisflex.kotlin.extensions.kproperty.eq
 import jakarta.annotation.Resource
@@ -45,17 +46,21 @@ class DictDataServiceTest {
 
     @Test
     fun testUpdate() {
-        val dictDataMapper: DictDataMapper = mapper()
-
-        val dictData = DictData(
-            value = "dajio",
-            label = "djwoaidji",
-            sort = 1,
-            dictType = "sys_user_sex",
-            status = CommonStatusEnum.ENABLE,
-            id = null
-        )
-        dictDataMapper.updateByCondition(dictData, (DictData::id eq 1543))
+//        val dictDataMapper: DictDataMapper = mapper()
+//
+//        val dictData = DictData(
+//            value = "dajio",
+//            label = "djwoaidji",
+//            sort = 1,
+//            dictType = "sys_user_sex",
+//            status = CommonStatusEnum.ENABLE,
+//            id = null
+//        )
+//        dictDataMapper.updateByCondition(dictData, (DictData::id eq 1543))
+        UpdateChain.of(DictData::class.java)
+            .set(DictData::value.name,"123")
+            .where(DictData::id eq 1543)
+            .update()
     }
 
 
