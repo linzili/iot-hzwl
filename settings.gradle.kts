@@ -34,3 +34,8 @@ include("iot-module-system:iot-module-system-api")
 findProject(":iot-module-system:iot-module-system-api")?.name = "iot-module-system-api"
 include("iot-framework:iot-spring-boot-starter-security")
 findProject(":iot-framework:iot-spring-boot-starter-security")?.name = "iot-spring-boot-starter-security"
+include("iot-module-device")
+include("iot-module-device:iot-module-device-api")
+findProject(":iot-module-device:iot-module-device-api")?.name = "iot-module-device-api"
+include("iot-module-device:iot-module-device-biz")
+findProject(":iot-module-device:iot-module-device-biz")?.name = "iot-module-device-biz"
