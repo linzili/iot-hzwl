@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:mysql://hanzhenyun.com:3306/hz-iot
+    username: root
+    password: 22679efeb857e31f
+    hikari:
+      keepalive-time: 60000
+      connection-test-query: select 1
+  threads:
+    virtual:
+      enabled: true
