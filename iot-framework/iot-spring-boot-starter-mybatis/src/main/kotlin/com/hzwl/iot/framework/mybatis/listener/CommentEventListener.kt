@@ -19,7 +19,7 @@ class CommentEventListener : InsertListener, UpdateListener {
      * @param entity 实体类
      */
     override fun onUpdate(entity: Any) {
-        SpringContextUtil.eventPublisher.publishEvent(EntityUpdateEvent(entity, entity.javaClass))
+        SpringContextUtil.eventPublisher.publishEvent(EntityUpdateEvent(entity))
     }
 
     /**
@@ -28,7 +28,7 @@ class CommentEventListener : InsertListener, UpdateListener {
      * @param entity 实体类
      */
     override fun onInsert(entity: Any) {
-        SpringContextUtil.eventPublisher.publishEvent(EntitySaveEvent(entity, entity.javaClass))
+        SpringContextUtil.eventPublisher.publishEvent(EntitySaveEvent(entity))
     }
 
 }
