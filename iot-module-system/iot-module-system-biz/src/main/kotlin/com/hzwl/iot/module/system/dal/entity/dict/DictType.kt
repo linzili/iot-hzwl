@@ -7,9 +7,8 @@ import com.mybatisflex.annotation.KeyType
 import com.mybatisflex.annotation.Table
 import com.mybatisflex.core.keygen.KeyGenerators
 
-@Table("system_dict_type")
+@Table("system_dict_type", comment = "字典类型表")
 data class DictType(
-
     @Id(keyType = KeyType.Generator, value = KeyGenerators.snowFlakeId)
     var id: Long? = null,
 
