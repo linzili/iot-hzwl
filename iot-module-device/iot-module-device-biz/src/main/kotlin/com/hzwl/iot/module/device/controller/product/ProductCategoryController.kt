@@ -5,10 +5,7 @@ import com.hzwl.iot.framework.web.pojo.R.Companion.ok
 import com.hzwl.iot.module.device.controller.product.vo.category.ProductCategorySaveReqVO
 import com.hzwl.iot.module.device.service.product.ProductCategoryService
 import io.swagger.v3.oas.annotations.Operation
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 /**
@@ -25,4 +22,9 @@ class ProductCategoryController(
     fun createProductCategory(@RequestBody createReqVO: ProductCategorySaveReqVO): R<Long> =
         ok(productCategoryService.createProductCategory(createReqVO))
 
+
+    @PutMapping
+    @Operation(summary = "修改产品分类")
+    fun updateProductCategory(@RequestBody updateReqVO: ProductCategorySaveReqVO): R<Boolean> =
+        ok(productCategoryService.updateProductCategory(updateReqVO))
 }

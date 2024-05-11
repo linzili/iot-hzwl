@@ -19,9 +19,8 @@ class ProductCategoryServiceImpl : ServiceImpl<ProductCategoryMapper, ProductCat
      * @return 产品分类编号
      */
     override fun createProductCategory(createReqVO: ProductCategorySaveReqVO): Long {
-        createReqVO.parentId?.let {
-            validateParentProductCategoryExists(createReqVO.parentId)
-        }
+
+        validateParentProductCategoryExists(createReqVO.parentId)
 
         validateProductCategoryNameUnique(null, createReqVO.name!!)
 
@@ -29,6 +28,24 @@ class ProductCategoryServiceImpl : ServiceImpl<ProductCategoryMapper, ProductCat
         productCategory.id = null
         save(productCategory)
         return productCategory.id!!
+    }
+
+    /**
+     * 修改产品分类
+     *
+     * @param updateReqVO 产品分类信息
+     * @return 是否成功
+     */
+    override fun updateProductCategory(updateReqVO: ProductCategorySaveReqVO): Boolean {
+        validateProductCategoryExists(updateReqVO.id)
+
+        validateParentProductCategoryExists(updateReqVO.parentId)
+
+        validateProductCategoryNameUnique(updateReqVO.id, updateReqVO.name!!)
+
+        val productCategory = convert(updateReqVO, ProductCategory::class.java)
+
+        return updateById(productCategory)
     }
 
     /**
@@ -61,7 +78,9 @@ class ProductCategoryServiceImpl : ServiceImpl<ProductCategoryMapper, ProductCat
      *
      * @param parentId 父分类编号
      */
-    private fun validateParentProductCategoryExists(parentId: Long) {
-        getById(parentId) ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_PARENT_NOT_EXISTS)
+    private fun validateParentProductCategoryExists(parentId: Long?) {
+        parentId?.let {
+            getById(parentId) ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_PARENT_NOT_EXISTS)
+        }
     }
 }

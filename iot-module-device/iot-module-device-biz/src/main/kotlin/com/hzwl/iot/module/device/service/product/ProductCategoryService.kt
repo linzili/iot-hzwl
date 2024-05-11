@@ -13,4 +13,12 @@ interface ProductCategoryService : IService<ProductCategory> {
      * @return 产品分类编号
      */
     fun createProductCategory(createReqVO: ProductCategorySaveReqVO): Long
+
+    /**
+     * 修改产品分类
+     *
+     * @param updateReqVO 产品分类信息
+     * @return 是否成功
+     */
+    fun updateProductCategory(updateReqVO: ProductCategorySaveReqVO): Boolean
 }
