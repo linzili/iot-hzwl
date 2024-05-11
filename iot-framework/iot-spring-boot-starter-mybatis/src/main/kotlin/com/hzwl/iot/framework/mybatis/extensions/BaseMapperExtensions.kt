@@ -5,9 +5,9 @@ import com.hzwl.iot.common.pojo.PageResult
 import com.mybatisflex.core.BaseMapper
 import com.mybatisflex.core.query.QueryCondition
 import com.mybatisflex.kotlin.scope.QueryScope
+import com.mybatisflex.kotlin.scope.UpdateScope
 import com.mybatisflex.kotlin.scope.queryScope
 import kotlin.reflect.KProperty
-
 /**
  * 自定义扩展baseMapper
  * @author lin
@@ -15,7 +15,7 @@ import kotlin.reflect.KProperty
 
 inline fun <reified R : Any> BaseMapper<*>.selectOneByQueryAs(
     init: QueryScope.() -> Unit
-): R {
+): R? {
     return selectOneByQueryAs(queryScope(init = init), R::class.java)
 }
 
@@ -54,7 +54,6 @@ inline fun <reified T : Any> BaseMapper<T>.paginateWith(
 
 /**
  * 分页查询
- * @param T 实体类型
  * @param R 接收数据类型
  * @param pageParam 分页参数
  * @param init 查询作用域初始化函数
@@ -69,7 +68,6 @@ inline fun <reified R : Any> BaseMapper<*>.paginateAs(
 
 /**
  * 分页查询
- * @param T 实体类型
  * @param R 接收数据类型
  * @param pageParam 分页参数
  * @param columns 查询字段
@@ -84,3 +82,7 @@ inline fun <reified R : Any> BaseMapper<*>.paginateWithAs(
         select(*columns).and(condition())
     }
 }
+
+
+inline fun <reified T : Any> BaseMapper<T>.update(scope: UpdateScope<T>.() -> Unit): Int =
+    com.mybatisflex.kotlin.extensions.db.update<T>(scope)
