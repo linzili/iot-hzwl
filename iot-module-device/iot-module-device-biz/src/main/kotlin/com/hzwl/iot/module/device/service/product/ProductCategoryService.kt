@@ -21,4 +21,12 @@ interface ProductCategoryService : IService<ProductCategory> {
      * @return 是否成功
      */
     fun updateProductCategory(updateReqVO: ProductCategorySaveReqVO): Boolean
+
+    /**
+     * 删除产品分类
+     *
+     * @param id 产品分类编号
+     * @return 是否成功
+     */
+    fun deleteProductCategory(id: Long): Boolean
 }

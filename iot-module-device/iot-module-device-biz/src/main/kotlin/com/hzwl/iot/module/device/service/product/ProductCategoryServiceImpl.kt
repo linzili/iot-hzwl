@@ -1,5 +1,6 @@
 package com.hzwl.iot.module.device.service.product
 
+import cn.hutool.extra.spring.SpringUtil.publishEvent
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.module.device.controller.product.vo.category.ProductCategorySaveReqVO
@@ -49,6 +50,33 @@ class ProductCategoryServiceImpl : ServiceImpl<ProductCategoryMapper, ProductCat
     }
 
     /**
+     * 删除产品分类
+     *
+     * @param id 产品分类编号
+     * @return 是否成功
+     */
+    override fun deleteProductCategory(id: Long): Boolean {
+        val productCategory = validateProductCategoryExists(id)
+
+        validateProductCategoryNotExistsChildren(id)
+
+        publishEvent(productCategory)
+
+        return removeById(id)
+    }
+
+    /**
+     * 校验产品分类是否存在子级
+     *
+     * @param id 产品分类编号
+     */
+    private fun validateProductCategoryNotExistsChildren(id: Long) {
+        if (mapper.selectCountByCondition(ProductCategory::parentId eq id) > 0) {
+            throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_CHILDREN_EXISTS)
+        }
+    }
+
+    /**
      * 校验产品分类名称的唯一性
      *
      * @param id
@@ -67,9 +95,9 @@ class ProductCategoryServiceImpl : ServiceImpl<ProductCategoryMapper, ProductCat
      *
      * @param id 产品分类编号
      */
-    private fun validateProductCategoryExists(id: Long?) {
+    private fun validateProductCategoryExists(id: Long?): ProductCategory {
         id?.let {
-            getById(it) ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_NOT_EXISTS)
+            return getById(it) ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_NOT_EXISTS)
         } ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_NOT_EXISTS)
     }
 
