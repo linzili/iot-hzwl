@@ -22,3 +22,6 @@ springdoc:
     - group: "system-module"
       paths-to-match:
         - "/system/**"
+    - group: "device-module"
+      paths-to-match:
+        - "/device/**"
