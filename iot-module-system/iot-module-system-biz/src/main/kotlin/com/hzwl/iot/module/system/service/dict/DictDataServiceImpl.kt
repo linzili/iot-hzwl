@@ -1,8 +1,10 @@
 package com.hzwl.iot.module.system.service.dict
 
+import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.common.pojo.PageResult
+import com.hzwl.iot.framework.mybatis.extensions.selectOneByQueryAs
 import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataPageReqVo
 import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataRespVO
 import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataSaveReqVo
@@ -98,11 +100,16 @@ class DictDataServiceImpl : ServiceImpl<DictDataMapper, DictData>(), DictDataSer
     /**
      * 校验字典类型是否有效
      *
-     * @param dictType 字典数据类型
+     * @param type 字典数据类型
      */
-    fun validateDictTypeExists(dictType: String) {
-        if (DictType.selectCountByCondition(DictType::type eq dictType) == 0L) {
-            throw exception(ErrorCodeConstants.DICT_TYPE_NOT_EXISTS)
+    fun validateDictTypeExists(type: String) {
+        val status = DictType.selectOneByQueryAs<Int> {
+            select(DictType::status)
+            where(DictType::type eq type)
+        } ?: throw exception(ErrorCodeConstants.DICT_TYPE_NOT_EXISTS)
+
+        if (status != CommonStatusEnum.ENABLE.value) {
+            throw exception(ErrorCodeConstants.DICT_TYPE_NOT_ENABLE)
         }
     }
 
