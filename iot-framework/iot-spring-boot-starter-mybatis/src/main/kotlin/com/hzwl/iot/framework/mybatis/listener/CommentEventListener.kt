@@ -1,6 +1,6 @@
 package com.hzwl.iot.framework.mybatis.listener
 
-import com.hzwl.iot.common.utils.SpringContextUtil
+import cn.hutool.extra.spring.SpringUtil.publishEvent
 import com.hzwl.iot.framework.mybatis.events.EntitySaveEvent
 import com.hzwl.iot.framework.mybatis.events.EntityUpdateEvent
 import com.mybatisflex.annotation.InsertListener
@@ -19,7 +19,7 @@ class CommentEventListener : InsertListener, UpdateListener {
      * @param entity 实体类
      */
     override fun onUpdate(entity: Any) {
-        SpringContextUtil.eventPublisher.publishEvent(EntityUpdateEvent(entity))
+        publishEvent(EntityUpdateEvent(entity))
     }
 
     /**
@@ -28,7 +28,7 @@ class CommentEventListener : InsertListener, UpdateListener {
      * @param entity 实体类
      */
     override fun onInsert(entity: Any) {
-        SpringContextUtil.eventPublisher.publishEvent(EntitySaveEvent(entity))
+        publishEvent(EntitySaveEvent(entity))
     }
 
 }
