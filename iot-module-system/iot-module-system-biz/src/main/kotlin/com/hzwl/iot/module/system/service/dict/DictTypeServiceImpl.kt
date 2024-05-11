@@ -1,9 +1,9 @@
 package com.hzwl.iot.module.system.service.dict
 
+import cn.hutool.extra.spring.SpringUtil.publishEvent
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.common.pojo.PageResult
-import com.hzwl.iot.common.utils.SpringContextUtil
 import com.hzwl.iot.framework.mybatis.events.EntityDeleteEvent
 import com.hzwl.iot.framework.mybatis.extensions.selectListByQueryAs
 import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypePageReqVO
@@ -60,7 +60,7 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
     override fun deleteDictType(id: Long): Boolean {
         val dictType = validateDictTypeExists(id)
 
-        SpringContextUtil.eventPublisher.publishEvent(EntityDeleteEvent(dictType))
+        publishEvent(EntityDeleteEvent(dictType))
 
         return removeById(id)
     }
