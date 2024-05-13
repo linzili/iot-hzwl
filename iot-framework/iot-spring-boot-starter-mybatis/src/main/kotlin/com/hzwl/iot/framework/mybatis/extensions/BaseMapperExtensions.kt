@@ -4,27 +4,60 @@ import com.hzwl.iot.common.pojo.PageParam
 import com.hzwl.iot.common.pojo.PageResult
 import com.mybatisflex.core.BaseMapper
 import com.mybatisflex.core.query.QueryCondition
+import com.mybatisflex.kotlin.extensions.condition.allAnd
 import com.mybatisflex.kotlin.scope.QueryScope
 import com.mybatisflex.kotlin.scope.UpdateScope
 import com.mybatisflex.kotlin.scope.queryScope
 import kotlin.reflect.KProperty
-/**
- * 自定义扩展baseMapper
- * @author lin
- */
 
+
+/**
+ * 根据查询条件来查询 1 条数据。
+ * @param R 接收数据类型
+ * @param init 查询作用域
+ * @return 实体类数据
+ */
 inline fun <reified R : Any> BaseMapper<*>.selectOneByQueryAs(
     init: QueryScope.() -> Unit
 ): R? {
     return selectOneByQueryAs(queryScope(init = init), R::class.java)
 }
 
+/**
+ * 根据查询条件查询数据列表，要求返回的数据为 asType。这种场景一般用在 left join 时，
+ * 有多出了实体类本身的字段内容，可以转换为 dto、vo 等场景。
+ *
+ * @param R 接收数据类型
+ * @param init 查询作用域
+ * @return 数据列表
+ */
 inline fun <reified R : Any> BaseMapper<*>.selectListByQueryAs(
-    init: QueryScope.() -> Unit
+    init: QueryScope.() -> Unit,
 ): List<R> {
     return selectListByQueryAs(queryScope(init = init), R::class.java)
 }
 
+
+/**
+ * 查询实体类及其 Relation 注解字段。
+ * @param R 接收数据类型
+ * @param init  查询作用域
+ * @return 数据列表
+ */
+inline fun <reified R> BaseMapper<*>.selectListWithRelationsByQueryAs(
+    init: QueryScope.() -> Unit
+): List<R> = queryScope(init = init).let { this.selectListWithRelationsByQueryAs(it, R::class.java) }
+
+/**
+ * 查询实体类及其 Relation 注解字段。
+ * @param R 接收数据类型
+ * @param condition  查询条件
+ * @return 数据列表
+ */
+inline fun <reified R> BaseMapper<*>.selectListWithRelationsByQueryAs(
+    vararg condition: QueryCondition
+): List<R> =
+    queryScope(init = { where(allAnd(*condition)) }).let { this.selectListWithRelationsByQueryAs(it, R::class.java) }
 
 /**
  * 分页查询
@@ -50,7 +83,6 @@ inline fun <reified T : Any> BaseMapper<T>.paginateWith(
 ): PageResult<T> {
     return paginate(pageParam) { where(condition()) }
 }
-
 
 /**
  * 分页查询
@@ -84,5 +116,10 @@ inline fun <reified R : Any> BaseMapper<*>.paginateWithAs(
 }
 
 
+/**
+ * 更新数据
+ * @param scope 更新作用域
+ * @return 更新数量
+ */
 inline fun <reified T : Any> BaseMapper<T>.update(scope: UpdateScope<T>.() -> Unit): Int =
     com.mybatisflex.kotlin.extensions.db.update<T>(scope)
