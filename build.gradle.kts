@@ -45,6 +45,7 @@ subprojects {
 
     noArg {
         annotation("com.mybatisflex.annotation.Table")
+        annotation("io.swagger.v3.oas.annotations.media.Schema")
         invokeInitializers = true
     }
 
