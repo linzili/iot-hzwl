@@ -2,6 +2,7 @@ package com.hzwl.iot.module.device.dal.entity.product
 
 import com.hzwl.iot.framework.mybatis.core.entity.BaseEntity
 import com.hzwl.iot.module.device.dal.mapper.product.ProductCategoryMapper
+import com.mybatisflex.annotation.Column
 import com.mybatisflex.annotation.Id
 import com.mybatisflex.annotation.KeyType
 import com.mybatisflex.annotation.Table
@@ -36,7 +37,13 @@ data class ProductCategory(
     /**
      * 租户id
      */
-    val tenantId: Long,
+    val tenantId: Long? = null,
+
+    /**
+     * 子分类
+     */
+    @Column(ignore = true)
+    var children: List<ProductCategory>? = null,
 ) : BaseEntity() {
     companion object : ProductCategoryMapper by mapper()
 }

@@ -3,11 +3,14 @@ package com.hzwl.iot.module.device.service.product
 import cn.hutool.extra.spring.SpringUtil.publishEvent
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
+import com.hzwl.iot.framework.mybatis.extensions.selectListByOrderBy
 import com.hzwl.iot.module.device.controller.product.vo.category.ProductCategorySaveReqVO
+import com.hzwl.iot.module.device.controller.product.vo.category.ProductCategoryTreeRespVO
 import com.hzwl.iot.module.device.dal.entity.product.ProductCategory
 import com.hzwl.iot.module.device.dal.mapper.product.ProductCategoryMapper
 import com.hzwl.iot.module.device.enums.ErrorCodeConstants
 import com.mybatisflex.kotlin.extensions.kproperty.eq
+import com.mybatisflex.kotlin.extensions.kproperty.unaryPlus
 import com.mybatisflex.spring.service.impl.ServiceImpl
 import org.springframework.stereotype.Service
 
@@ -63,6 +66,22 @@ class ProductCategoryServiceImpl : ServiceImpl<ProductCategoryMapper, ProductCat
         publishEvent(productCategory)
 
         return removeById(id)
+    }
+
+    /**
+     * 获得产品分类树形列表
+     *
+     * @return 产品分类树列表
+     */
+    override fun getProductCategoryTreeList(): List<ProductCategoryTreeRespVO> {
+        val categories = mapper.selectListByOrderBy {
+            +ProductCategory::sort
+        }
+        val categoryMap = categories.groupBy { it.parentId }
+        categories.forEach {
+            it.children = categoryMap[it.id]
+        }
+        return convert(categoryMap[null] ?: emptyList(), ProductCategoryTreeRespVO::class.java)
     }
 
     /**

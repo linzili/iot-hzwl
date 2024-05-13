@@ -1,6 +1,7 @@
 package com.hzwl.iot.module.device.service.product
 
 import com.hzwl.iot.module.device.controller.product.vo.category.ProductCategorySaveReqVO
+import com.hzwl.iot.module.device.controller.product.vo.category.ProductCategoryTreeRespVO
 import com.hzwl.iot.module.device.dal.entity.product.ProductCategory
 import com.mybatisflex.core.service.IService
 
@@ -29,4 +30,11 @@ interface ProductCategoryService : IService<ProductCategory> {
      * @return 是否成功
      */
     fun deleteProductCategory(id: Long): Boolean
+
+    /**
+     * 获得产品分类树形列表
+     *
+     * @return 产品分类树列表
+     */
+    fun getProductCategoryTreeList(): List<ProductCategoryTreeRespVO>
 }
