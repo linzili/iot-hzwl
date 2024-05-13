@@ -1,5 +1,5 @@
 dependencies {
-    api("cn.dev33:sa-token-spring-boot-starter:${rootProject.ext["sa-token.version"]}")
+    api("cn.dev33:sa-token-spring-boot3-starter")
 
     api(project(":iot-framework:iot-spring-boot-starter-web"))
 }

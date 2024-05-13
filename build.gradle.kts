@@ -88,7 +88,7 @@ subprojects {
             dependency("org.springdoc:springdoc-openapi-starter-webmvc-ui:${rootProject.ext["springdoc.version"]}")
             dependency("cn.hutool:hutool-all:${rootProject.ext["hutool.version"]}")
             dependency("com.alibaba:transmittable-thread-local:${rootProject.ext["transmittable-thread-local.version"]}")
-            dependency("cn.dev33:sa-token-spring-boot-starter:${rootProject.ext["sa-token.version"]}")
+            dependency("cn.dev33:sa-token-spring-boot3-starter:${rootProject.ext["sa-token.version"]}")
 
         }
     }
