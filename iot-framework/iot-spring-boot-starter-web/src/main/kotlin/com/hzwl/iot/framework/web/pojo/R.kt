@@ -17,7 +17,7 @@ data class R<T>(
 
     @Schema(description = "响应数据", required = true)
     var data: T? = null
-)  {
+) {
 
     companion object {
         /**

@@ -58,7 +58,7 @@ class DictDataServiceTest {
 //        )
 //        dictDataMapper.updateByCondition(dictData, (DictData::id eq 1543))
         UpdateChain.of(DictData::class.java)
-            .set(DictData::value.name,"123")
+            .set(DictData::value.name, "123")
             .where(DictData::id eq 1543)
             .update()
     }

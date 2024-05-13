@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
 @Schema(description = "管理后台 - 字典数据分页列表 Request VO")
- class DictDataPageReqVo(
+data class DictDataPageReqVo(
 
     @Schema(description = "字典标签 模糊匹配", example = "iot")
     @field:Size(max = 100, message = "字典标签长度不能超过100个字符")

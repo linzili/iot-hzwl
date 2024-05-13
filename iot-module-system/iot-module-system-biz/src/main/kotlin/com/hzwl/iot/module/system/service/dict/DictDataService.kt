@@ -50,5 +50,5 @@ interface DictDataService : IService<DictData> {
      *
      * @param pageReqVo 分页参数
      */
-    fun getDictDataPage(pageReqVo: DictDataPageReqVo) : PageResult<DictDataRespVO>
+    fun getDictDataPage(pageReqVo: DictDataPageReqVo): PageResult<DictDataRespVO>
 }

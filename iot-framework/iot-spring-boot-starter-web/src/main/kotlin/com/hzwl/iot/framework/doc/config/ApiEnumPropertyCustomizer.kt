@@ -38,7 +38,8 @@ class ApiEnumPropertyCustomizer : PropertyCustomizer, IEnumCustomizer {
                     // 设置枚举的值和描述
                     schema.enum = this.getValues(fieldClazz)
                     val description = this.getDescription(fieldClazz)
-                    schema.description = if (ObjectUtils.isEmpty(property.description)) description else "${property.description} ($description)"
+                    schema.description =
+                        if (ObjectUtils.isEmpty(property.description)) description else "${property.description} ($description)"
 
                     return schema
                 }

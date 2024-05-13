@@ -29,7 +29,6 @@ class ProductCategoryController(
     fun createProductCategory(@RequestBody createReqVO: ProductCategorySaveReqVO): R<Long> =
         ok(productCategoryService.createProductCategory(createReqVO))
 
-
     @PutMapping
     @Operation(summary = "修改产品分类")
     fun updateProductCategory(@RequestBody updateReqVO: ProductCategorySaveReqVO): R<Boolean> =
@@ -47,7 +46,6 @@ class ProductCategoryController(
             ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_NOT_EXISTS)
         return ok(convert(productCategory, ProductCategoryRespVO::class.java))
     }
-
 
     @GetMapping("tree-list")
     @Operation(summary = "获取产品分类树形列表")
