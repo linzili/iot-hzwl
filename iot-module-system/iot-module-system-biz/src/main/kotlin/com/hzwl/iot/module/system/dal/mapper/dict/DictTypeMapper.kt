@@ -18,14 +18,6 @@ import org.apache.ibatis.annotations.Mapper
 interface DictTypeMapper : BaseMapper<DictType> {
     fun selectPage(pageReqVO: DictTypePageReqVO): PageResult<DictTypeRespVO> {
         return paginateAs<DictTypeRespVO>(pageReqVO) {
-            select(
-                DictType::id,
-                DictType::name,
-                DictType::type,
-                DictType::status,
-                DictType::remark,
-                DictType::createTime
-            )
             andAll(
                 DictType::name like pageReqVO.name,
                 DictType::type like pageReqVO.type,

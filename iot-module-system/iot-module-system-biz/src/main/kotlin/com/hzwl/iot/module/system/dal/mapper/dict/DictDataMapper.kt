@@ -43,14 +43,7 @@ interface DictDataMapper : BaseMapper<DictData> {
      */
     fun selectSimpleDictDataList(): List<DictDataSimpleRespVO> {
         return selectListByQueryAs<DictDataSimpleRespVO> {
-            select(
-                DictData::dictType,
-                DictData::label,
-                DictData::value,
-                DictData::cssClass,
-                DictData::colorType
-            )
-            and(DictData::status eq CommonStatusEnum.ENABLE)
+            where(DictData::status eq CommonStatusEnum.ENABLE)
             orderBy(+DictData::dictType)
             orderBy(+DictData::sort)
         }
@@ -64,18 +57,6 @@ interface DictDataMapper : BaseMapper<DictData> {
      */
     fun selectPage(pageReqVo: DictDataPageReqVo): PageResult<DictDataRespVO> {
         return paginateAs<DictDataRespVO>(pageReqVo) {
-            select(
-                DictData::id,
-                DictData::sort,
-                DictData::label,
-                DictData::value,
-                DictData::dictType,
-                DictData::status,
-                DictData::colorType,
-                DictData::cssClass,
-                DictData::remark,
-                DictData::createTime,
-            )
             allAnd(
                 DictData::dictType eq pageReqVo.dictType,
                 DictData::status eq pageReqVo.status,

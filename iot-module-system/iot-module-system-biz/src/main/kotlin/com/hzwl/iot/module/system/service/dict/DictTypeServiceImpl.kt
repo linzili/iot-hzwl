@@ -48,7 +48,7 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
         validateDictTypeUnique(updateReqVo.id, updateReqVo.type!!)
 
         val dictType = convert(updateReqVo, DictType::class.java)
-        return updateById(dictType,false)
+        return updateById(dictType, false)
     }
 
     /**
@@ -81,9 +81,7 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
      * @return
      */
     override fun getSimpleDictTypeList(): List<DictTypeSimpleRespVO> {
-        return mapper.selectListByQueryAs<DictTypeSimpleRespVO> {
-            select(DictType::id, DictType::name, DictType::type)
-        }
+        return mapper.selectListByQueryAs<DictTypeSimpleRespVO> {}
     }
 
 
