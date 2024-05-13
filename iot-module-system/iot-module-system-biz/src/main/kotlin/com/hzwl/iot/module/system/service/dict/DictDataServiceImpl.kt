@@ -53,7 +53,7 @@ class DictDataServiceImpl : ServiceImpl<DictDataMapper, DictData>(), DictDataSer
 
         val dictData = convert(updateReqVo, DictData::class.java)
 
-        return updateById(dictData)
+        return updateById(dictData,false)
     }
 
     /**

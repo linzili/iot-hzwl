@@ -48,7 +48,7 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
         validateDictTypeUnique(updateReqVo.id, updateReqVo.type!!)
 
         val dictType = convert(updateReqVo, DictType::class.java)
-        return updateById(dictType)
+        return updateById(dictType,false)
     }
 
     /**

@@ -46,7 +46,7 @@ class ProductCategoryServiceImpl : ServiceImpl<ProductCategoryMapper, ProductCat
 
         val productCategory = convert(updateReqVO, ProductCategory::class.java)
 
-        return updateById(productCategory)
+        return updateById(productCategory, false)
     }
 
     /**
