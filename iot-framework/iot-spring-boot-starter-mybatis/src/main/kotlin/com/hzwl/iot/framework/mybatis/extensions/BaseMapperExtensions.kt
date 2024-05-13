@@ -4,6 +4,7 @@ import com.hzwl.iot.common.pojo.PageParam
 import com.hzwl.iot.common.pojo.PageResult
 import com.mybatisflex.core.BaseMapper
 import com.mybatisflex.core.query.QueryCondition
+import com.mybatisflex.core.query.QueryOrderBy
 import com.mybatisflex.kotlin.extensions.condition.allAnd
 import com.mybatisflex.kotlin.scope.QueryScope
 import com.mybatisflex.kotlin.scope.UpdateScope
@@ -35,6 +36,45 @@ inline fun <reified R : Any> BaseMapper<*>.selectListByQueryAs(
     init: QueryScope.() -> Unit,
 ): List<R> {
     return selectListByQueryAs(queryScope(init = init), R::class.java)
+}
+
+/**
+ * 根据排序查询数据列表
+ *
+ * @param T
+ * @param init 查询作用域
+ * @return 数据列表
+ */
+inline fun <T> BaseMapper<T>.selectListByQuery(
+    init: QueryScope.() -> Unit,
+): List<T> {
+    return selectListByQuery(queryScope(init = init))
+}
+
+/**
+ * 根据排序查询数据列表
+ *
+ * @param T
+ * @param condition 排序条件
+ * @return 数据列表
+ */
+inline fun <T> BaseMapper<T>.selectListByOrderBy(
+    condition: () -> QueryOrderBy
+): List<T> {
+    return selectListByQuery(queryScope(init = { orderBy(condition()) }))
+}
+
+/**
+ * 根据条件查询数据列表
+ *
+ * @param T
+ * @param condition 查询条件
+ * @return 数据列表
+ */
+inline fun <T> BaseMapper<T>.selectListByCondition(
+    condition: () -> QueryCondition
+): List<T> {
+    return selectListByQuery(queryScope(init = { and(condition()) }))
 }
 
 
