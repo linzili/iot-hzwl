@@ -44,8 +44,7 @@ interface DictDataMapper : BaseMapper<DictData> {
     fun selectSimpleDictDataList(): List<DictDataSimpleRespVO> {
         return selectListByQueryAs<DictDataSimpleRespVO> {
             where(DictData::status eq CommonStatusEnum.ENABLE)
-            orderBy(+DictData::dictType)
-            orderBy(+DictData::sort)
+            orderBy(+DictData::dictType, +DictData::sort)
         }
     }
 
@@ -62,8 +61,7 @@ interface DictDataMapper : BaseMapper<DictData> {
                 DictData::status eq pageReqVo.status,
                 DictData::label like pageReqVo.label
             )
-            orderBy(+DictData::dictType)
-            orderBy(+DictData::sort)
+            orderBy(+DictData::dictType, +DictData::sort)
         }
     }
 

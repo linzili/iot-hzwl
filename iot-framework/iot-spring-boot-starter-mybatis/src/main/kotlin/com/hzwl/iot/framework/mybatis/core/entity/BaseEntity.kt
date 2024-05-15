@@ -1,6 +1,9 @@
 package com.hzwl.iot.framework.mybatis.core.entity
 
 import com.mybatisflex.annotation.Column
+import com.mybatisflex.annotation.Id
+import com.mybatisflex.annotation.KeyType
+import com.mybatisflex.core.keygen.KeyGenerators
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -9,7 +12,10 @@ import java.time.LocalDateTime
  *
  * @author lin
  */
-open class BaseEntity(
+open class BaseEntity<PK>(
+
+    @Id(keyType = KeyType.Generator, value = KeyGenerators.snowFlakeId)
+    open var id: PK? = null,
 
     @Column(comment = "创建者")
     var creator: String? = null,

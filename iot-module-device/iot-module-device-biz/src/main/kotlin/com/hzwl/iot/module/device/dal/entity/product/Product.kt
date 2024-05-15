@@ -1,16 +1,13 @@
 package com.hzwl.iot.module.device.dal.entity.product
 
 import com.hzwl.iot.common.enums.CommonStatusEnum
-import com.hzwl.iot.framework.mybatis.core.entity.BaseEntity
+import com.hzwl.iot.framework.mybatis.core.entity.TenantEntity
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductSaveReqVO
 import com.hzwl.iot.module.device.dal.mapper.product.ProductMapper
 import com.hzwl.iot.module.device.enums.DeviceTypeEnum
 import com.mybatisflex.annotation.Column
-import com.mybatisflex.annotation.Id
-import com.mybatisflex.annotation.KeyType
 import com.mybatisflex.annotation.Table
 import com.mybatisflex.core.handler.JacksonTypeHandler
-import com.mybatisflex.core.keygen.KeyGenerators
 import com.mybatisflex.kotlin.extensions.db.mapper
 import io.github.linpeilie.annotations.AutoMapper
 import io.github.linpeilie.annotations.AutoMappers
@@ -20,9 +17,6 @@ import io.github.linpeilie.annotations.AutoMappers
     AutoMapper(target = ProductSaveReqVO::class)
 )
 data class Product(
-
-    @Id(keyType = KeyType.Generator, value = KeyGenerators.snowFlakeId)
-    var id: Long?,
 
     /**
      * 产品名称
@@ -65,10 +59,6 @@ data class Product(
      */
     val remark: String?,
 
-    /**
-     * 租户id
-     */
-    val tenantId: Long?,
-) : BaseEntity() {
+) : TenantEntity<Long>() {
     companion object : ProductMapper by mapper()
 }

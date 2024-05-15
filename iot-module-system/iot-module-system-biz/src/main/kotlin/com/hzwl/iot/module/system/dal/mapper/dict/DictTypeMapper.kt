@@ -9,7 +9,7 @@ import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypeRespVO
 import com.hzwl.iot.module.system.dal.entity.dict.DictType
 import com.mybatisflex.core.BaseMapper
 import com.mybatisflex.kotlin.extensions.kproperty.eq
-import com.mybatisflex.kotlin.extensions.kproperty.unaryMinus
+import com.mybatisflex.kotlin.extensions.kproperty.unaryPlus
 import com.mybatisflex.kotlin.extensions.wrapper.andAll
 import org.apache.ibatis.annotations.Mapper
 
@@ -24,7 +24,7 @@ interface DictTypeMapper : BaseMapper<DictType> {
                 DictType::status eq pageReqVO.status,
                 DictType::createTime between pageReqVO.createTime,
             )
-            orderBy(-DictType::id)
+            orderBy(+DictType::id)
         }
     }
 }
