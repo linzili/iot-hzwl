@@ -77,6 +77,18 @@ inline fun <T> BaseMapper<T>.selectListByCondition(
     return selectListByQuery(queryScope(init = { and(condition()) }))
 }
 
+/**
+ * 根据条件查询数据列表
+ *
+ * @param T
+ * @param condition 查询条件
+ * @return 数据列表
+ */
+inline fun <reified R : Any> BaseMapper<*>.selectListByConditionAs(
+    condition: () -> QueryCondition
+): List<R> {
+    return selectListByQueryAs<R> { and(condition()) }
+}
 
 /**
  * 查询实体类及其 Relation 注解字段。
@@ -163,3 +175,4 @@ inline fun <reified R : Any> BaseMapper<*>.paginateWithAs(
  */
 inline fun <reified T : Any> BaseMapper<T>.update(scope: UpdateScope<T>.() -> Unit): Int =
     com.mybatisflex.kotlin.extensions.db.update<T>(scope)
+
