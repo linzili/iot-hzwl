@@ -43,9 +43,9 @@ class ProductController(
     @DeleteMapping("{id}")
     @Operation(summary = "删除产品")
     @Parameter(description = "产品编号", name = "id", required = true, example = "1024")
-    fun deleteProduct(@PathVariable("id") id: Long): R<Boolean> {
-        return ok(productService.deleteProduct(id))
-    }
+    fun deleteProduct(@PathVariable("id") id: Long): R<Boolean> =
+        ok(productService.deleteProduct(id))
+
 
     @GetMapping("page")
     @Operation(summary = "分页查询产品列表")
