@@ -9,7 +9,7 @@ import java.io.Serializable
 @Schema(description = "分页参数")
 open class PageParam(
 
-    @Schema(
+    @field: Schema(
         description = "页码, 从1开始",
         example = "1",
         requiredMode = Schema.RequiredMode.REQUIRED,
@@ -19,7 +19,7 @@ open class PageParam(
     @field:Min(value = 1, message = "页码不能小于 1")
     var page: Int? = 1,
 
-    @Schema(
+    @field:Schema(
         description = "每页条数, 最大值为 100",
         example = "10",
         requiredMode = Schema.RequiredMode.REQUIRED,
