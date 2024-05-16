@@ -13,6 +13,9 @@ import com.hzwl.iot.module.device.enums.ErrorCodeConstants
 import com.hzwl.iot.module.device.service.product.ProductService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.ExampleObject
+import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.*
 
@@ -83,6 +86,13 @@ class ProductController(
     fun updateProductConfig(
         @PathVariable("id") id: Long,
         @RequestBody
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            content = [Content(
+                schema = Schema(type = "object"),
+                examples = [ExampleObject(value = "{\"key\":\"value\"}")]
+            )],
+        )
         config: Map<String, Any>
     ): R<Boolean> =
         ok(productService.updateProductConfig(id, config))
