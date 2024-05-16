@@ -8,6 +8,7 @@ import com.hzwl.iot.framework.web.pojo.R.Companion.ok
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductPageReqVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductRespVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductSaveReqVO
+import com.hzwl.iot.module.device.controller.product.vo.product.ProductSimpleRespVO
 import com.hzwl.iot.module.device.enums.ErrorCodeConstants
 import com.hzwl.iot.module.device.service.product.ProductService
 import io.swagger.v3.oas.annotations.Operation
@@ -59,8 +60,31 @@ class ProductController(
 
     @GetMapping("list-all-simple")
     @Operation(summary = "获取产品精简信息列表", description = "只包含已发布的产品")
-    fun listSimpleProducts(): R<List<ProductRespVO>> {
-        return ok(productService.listSimpleProducts())
+    fun getSimpleProductList(): R<List<ProductSimpleRespVO>> =
+        ok(productService.getSimpleProductList())
+
+    @PutMapping("{id}/publish")
+    @Operation(summary = "发布产品")
+    @Parameter(description = "产品编号", name = "id", required = true, example = "1024")
+    fun publishProduct(@PathVariable("id") id: Long): R<Boolean> {
+        return ok(productService.publishProduct(id))
     }
+
+    @PutMapping("{id}/unpublish")
+    @Operation(summary = "取消发布产品")
+    @Parameter(description = "产品编号", name = "id", required = true, example = "1024")
+    fun unpublishProduct(@PathVariable("id") id: Long): R<Boolean> {
+        return ok(productService.unpublishProduct(id))
+    }
+
+    @PutMapping("{id}/config")
+    @Operation(summary = "修改产品配置")
+    @Parameter(description = "产品编号", name = "id", required = true, example = "1024")
+    fun updateProductConfig(
+        @PathVariable("id") id: Long,
+        @RequestBody
+        config: Map<String, Any>
+    ): R<Boolean> =
+        ok(productService.updateProductConfig(id, config))
 
 }

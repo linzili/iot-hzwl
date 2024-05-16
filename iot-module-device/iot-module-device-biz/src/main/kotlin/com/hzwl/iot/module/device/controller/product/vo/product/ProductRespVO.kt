@@ -3,6 +3,8 @@ package com.hzwl.iot.module.device.controller.product.vo.product
 import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.module.device.dal.entity.product.Product
 import com.hzwl.iot.module.device.enums.DeviceTypeEnum
+import com.mybatisflex.annotation.Column
+import com.mybatisflex.core.handler.JacksonTypeHandler
 import io.github.linpeilie.annotations.AutoMapper
 import io.github.linpeilie.annotations.ReverseAutoMapping
 import io.swagger.v3.oas.annotations.media.Schema
@@ -32,6 +34,7 @@ data class ProductRespVO(
     val categoryName: String?,
 
     @Schema(description = "产品配置", example = "{\"key\":\"value\"}")
+    @Column(typeHandler = JacksonTypeHandler::class)
     val configuration: Map<String, Any>?,
 
     @Schema(description = "备注", example = "备注")

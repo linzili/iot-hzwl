@@ -4,6 +4,7 @@ import com.hzwl.iot.common.pojo.PageResult
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductPageReqVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductRespVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductSaveReqVO
+import com.hzwl.iot.module.device.controller.product.vo.product.ProductSimpleRespVO
 import com.hzwl.iot.module.device.dal.entity.product.Product
 import com.mybatisflex.core.service.IService
 
@@ -40,5 +41,37 @@ interface ProductService : IService<Product> {
      * @return 产品分页列表
      */
     fun getProductPage(pageReqVO: ProductPageReqVO): PageResult<ProductRespVO>
+
+    /**
+     * 查询精简产品列表
+     *
+     * @return
+     */
+    fun getSimpleProductList(): List<ProductSimpleRespVO>
+
+    /**
+     * 发布产品
+     *
+     * @param id 产品id
+     * @return 是否成功
+     */
+    fun publishProduct(id: Long): Boolean
+
+    /**
+     * 取消发布产品
+     *
+     * @param id 产品id
+     * @return 是否成功
+     */
+    fun unpublishProduct(id: Long): Boolean
+
+    /**
+     * 更新产品配置
+     *
+     * @param id 产品id
+     * @param config 配置
+     * @return 是否成功
+     */
+    fun updateProductConfig(id: Long, config: Map<String, Any>): Boolean
 
 }

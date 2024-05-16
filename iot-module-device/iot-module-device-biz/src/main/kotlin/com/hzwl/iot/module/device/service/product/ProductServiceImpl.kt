@@ -5,13 +5,16 @@ import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.common.pojo.PageResult
+import com.hzwl.iot.framework.mybatis.extensions.selectListByQueryAs
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductPageReqVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductRespVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductSaveReqVO
+import com.hzwl.iot.module.device.controller.product.vo.product.ProductSimpleRespVO
 import com.hzwl.iot.module.device.dal.entity.product.Product
 import com.hzwl.iot.module.device.dal.entity.product.ProductCategory
 import com.hzwl.iot.module.device.dal.mapper.product.ProductMapper
 import com.hzwl.iot.module.device.enums.ErrorCodeConstants
+import com.mybatisflex.kotlin.extensions.db.update
 import com.mybatisflex.kotlin.extensions.kproperty.eq
 import com.mybatisflex.spring.service.impl.ServiceImpl
 import org.springframework.stereotype.Service
@@ -71,12 +74,12 @@ class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService
      */
     override fun deleteProduct(id: Long): Boolean {
         val dbProduct = validateProductExists(id)
-        if (dbProduct.publish === CommonStatusEnum.ENABLE) {
-            throw exception(ErrorCodeConstants.PRODUCT_PUBLISH_ENABLE)
-        }
+        validateProductNotPublish(dbProduct)
+
         publishEvent(dbProduct)
         return removeById(id)
     }
+
 
     /**
      * 获得产品分页列表
@@ -87,6 +90,91 @@ class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService
     override fun getProductPage(pageReqVO: ProductPageReqVO): PageResult<ProductRespVO> =
         mapper.selectPage(pageReqVO)
 
+    /**
+     * 查询精简产品列表
+     *
+     * @return
+     */
+    override fun getSimpleProductList(): List<ProductSimpleRespVO> =
+        mapper.selectListByQueryAs<ProductSimpleRespVO> {
+            where(Product::publish eq CommonStatusEnum.ENABLE)
+            orderBy(Product::categoryId)
+            orderBy(Product::id)
+        }
+
+    /**
+     * 发布产品
+     *
+     * @param id 产品id
+     * @return 是否成功
+     */
+    override fun publishProduct(id: Long): Boolean {
+
+        val product = validateProductExists(id)
+
+        validateProductNotPublish(product)
+
+        // todo: 校验产品是否完成配置
+        product.publish = CommonStatusEnum.ENABLE
+
+        return updateById(product)
+    }
+
+    /**
+     * 取消发布产品
+     *
+     * @param id 产品id
+     * @return 是否成功
+     */
+    override fun unpublishProduct(id: Long): Boolean {
+        val product = validateProductExists(id)
+
+        validateProductPublish(product)
+
+        // todo: 校验产品下是否存在设备
+        product.publish = CommonStatusEnum.DISABLE
+
+        return updateById(product)
+    }
+
+    /**
+     * 更新产品配置
+     *
+     * @param id 产品id
+     * @param config 配置
+     * @return 是否成功
+     */
+    override fun updateProductConfig(id: Long, config: Map<String, Any>): Boolean {
+        validateProductExists(id)
+
+        return update {
+            Product::configuration set config
+            where(Product::id eq id)
+        } == 1
+    }
+
+
+    /**
+     * 校验产品未发布
+     *
+     * @param product
+     */
+    private fun validateProductNotPublish(product: Product) {
+        if (product.publish === CommonStatusEnum.ENABLE) {
+            throw exception(ErrorCodeConstants.PRODUCT_PUBLISH_ENABLE)
+        }
+    }
+
+    /**
+     * 校验产品已发布
+     *
+     * @param product
+     */
+    private fun validateProductPublish(product: Product) {
+        if (product.publish === CommonStatusEnum.DISABLE) {
+            throw exception(ErrorCodeConstants.PRODUCT_PUBLISH_DISABLE)
+        }
+    }
 
     private fun validateProductExists(id: Long?): Product =
         if (id == null) {
