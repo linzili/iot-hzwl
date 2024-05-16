@@ -7,12 +7,14 @@ import com.hzwl.iot.framework.web.pojo.R
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.ConstraintViolation
 import jakarta.validation.ConstraintViolationException
+import org.springframework.http.HttpStatus
 import org.springframework.validation.BindException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
+import org.springframework.web.servlet.resource.NoResourceFoundException
 
 /**
  * 全局异常处理器，将 Exception 翻译成 R
@@ -71,9 +73,9 @@ class GlobalExceptionHandle {
     @ExceptionHandler(value = [ConstraintViolationException::class])
     fun constraintViolationExceptionHandler(ex: ConstraintViolationException): R<*> {
         log.warn("[constraintViolationExceptionHandler]", ex)
-        val constraintViolation: ConstraintViolation<*> = ex.getConstraintViolations().iterator().next()
+        val constraintViolation: ConstraintViolation<*> = ex.constraintViolations.iterator().next()
         return R.fail(
-            java.lang.String.format("请求参数不正确:%s", constraintViolation.getMessage())
+            java.lang.String.format("请求参数不正确:%s", constraintViolation.message)
         )
     }
 
@@ -86,6 +88,12 @@ class GlobalExceptionHandle {
     fun serviceExceptionHandler(ex: ServiceException): R<*> {
         log.info("[serviceExceptionHandler]", ex)
         return R.fail(ex.code, ex.message)
+    }
+
+    @ExceptionHandler(NoResourceFoundException::class)
+    fun handle(exception: NoResourceFoundException): R<*> {
+        log.error("请求资源不存在 -> $exception")
+        return R.fail(HttpStatus.NOT_FOUND.value(), "请求资源不存在:${exception.resourcePath}")
     }
 
     /**
