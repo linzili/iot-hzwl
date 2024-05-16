@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*
  * @author lin
  */
 @RestController
-@RequestMapping("device/product")
+@RequestMapping("device-manager/product")
 @Tag(name = "设备管理 - 产品")
 class ProductController(
     val productService: ProductService

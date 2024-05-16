@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*
  * @author lin
  */
 @RestController
-@RequestMapping("device/product-category")
+@RequestMapping("device-manager/product-category")
 @Tag(name = "设备管理 - 产品分类")
 class ProductCategoryController(
     val productCategoryService: ProductCategoryService
