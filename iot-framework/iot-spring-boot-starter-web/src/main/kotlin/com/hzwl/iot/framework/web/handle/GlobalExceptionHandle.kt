@@ -1,5 +1,6 @@
 package com.hzwl.iot.framework.web.handle
 
+import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.hzwl.iot.common.exception.ServiceException
 import com.hzwl.iot.common.exception.enums.GlobalErrorCodeConstants.INTERNAL_SERVER_ERROR
 import com.hzwl.iot.common.extensions.log
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.ConstraintViolation
 import jakarta.validation.ConstraintViolationException
 import org.springframework.http.HttpStatus
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.validation.BindException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
@@ -31,7 +33,7 @@ class GlobalExceptionHandle {
     @ExceptionHandler(value = [MissingServletRequestParameterException::class])
     fun missingServletRequestParameterExceptionHandler(ex: MissingServletRequestParameterException): R<Nothing> {
         log.warn("[missingServletRequestParameterExceptionHandler]", ex)
-        return R.fail(String.format("请求参数缺失:%s", ex.parameterName))
+        return R.fail("请求参数缺失:${ex.parameterName}")
     }
 
     /**
@@ -42,7 +44,7 @@ class GlobalExceptionHandle {
     @ExceptionHandler(MethodArgumentTypeMismatchException::class)
     fun methodArgumentTypeMismatchExceptionHandler(ex: MethodArgumentTypeMismatchException): R<*> {
         log.warn("[missingServletRequestParameterExceptionHandler]", ex)
-        return R.fail(String.format("请求参数类型错误:%s", ex.message))
+        return R.fail("请求参数类型错误:${ex.message}")
     }
 
     /**
@@ -51,9 +53,7 @@ class GlobalExceptionHandle {
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun methodArgumentNotValidExceptionExceptionHandler(ex: MethodArgumentNotValidException): R<*> {
         log.warn("[methodArgumentNotValidExceptionExceptionHandler]", ex)
-//        val fieldError = checkNotNull(ex.bindingResult.fieldError)
-//        return R.fail(String.format("请求参数不正确:%s", fieldError.defaultMessage))
-        return R.fail(String.format("请求参数不正确"))
+        return R.fail("请求参数不正确")
     }
 
     /**
@@ -62,9 +62,19 @@ class GlobalExceptionHandle {
     @ExceptionHandler(BindException::class)
     fun bindExceptionHandler(ex: BindException): R<*> {
         log.warn("[handleBindException]", ex)
-//        val fieldError = checkNotNull(ex.fieldError)
-//        return R.fail(String.format("请求参数不正确:%s", fieldError.defaultMessage))
-        return R.fail(String.format("请求参数不正确"))
+        return R.fail("请求参数不正确")
+    }
+
+    /**
+     * 处理 SpringMVC 请求参数解析失败
+     */
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun httpMessageNotReadableExceptionHandler(ex: HttpMessageNotReadableException): R<*> {
+        log.warn("[httpMessageNotReadableExceptionHandler]", ex.cause)
+        if (ex.cause is MismatchedInputException) {
+            return R.fail("请求体类型错误")
+        }
+        return R.fail("请求体不能为空")
     }
 
     /**
@@ -74,10 +84,9 @@ class GlobalExceptionHandle {
     fun constraintViolationExceptionHandler(ex: ConstraintViolationException): R<*> {
         log.warn("[constraintViolationExceptionHandler]", ex)
         val constraintViolation: ConstraintViolation<*> = ex.constraintViolations.iterator().next()
-        return R.fail(
-            java.lang.String.format("请求参数不正确:%s", constraintViolation.message)
-        )
+        return R.fail("请求参数不正确:${constraintViolation.message}")
     }
+
 
     /**
      * 处理业务异常 ServiceException
