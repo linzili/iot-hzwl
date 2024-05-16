@@ -114,20 +114,20 @@ class ProductCategoryServiceImpl : ServiceImpl<ProductCategoryMapper, ProductCat
      *
      * @param id 产品分类编号
      */
-    private fun validateProductCategoryExists(id: Long?): ProductCategory {
+    private fun validateProductCategoryExists(id: Long?): ProductCategory =
         id?.let {
             return getById(it) ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_NOT_EXISTS)
         } ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_NOT_EXISTS)
-    }
+
 
     /**
      * 校验父级产品分类是否存在
      *
      * @param parentId 父分类编号
      */
-    private fun validateParentProductCategoryExists(parentId: Long?) {
+    private fun validateParentProductCategoryExists(parentId: Long?) =
         parentId?.let {
             getById(parentId) ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_PARENT_NOT_EXISTS)
         }
-    }
+
 }

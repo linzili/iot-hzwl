@@ -1,8 +1,12 @@
 package com.hzwl.iot.module.device.service.product
 
+import cn.hutool.extra.spring.SpringUtil.publishEvent
 import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
+import com.hzwl.iot.common.pojo.PageResult
+import com.hzwl.iot.module.device.controller.product.vo.product.ProductPageReqVO
+import com.hzwl.iot.module.device.controller.product.vo.product.ProductRespVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductSaveReqVO
 import com.hzwl.iot.module.device.dal.entity.product.Product
 import com.hzwl.iot.module.device.dal.entity.product.ProductCategory
@@ -59,17 +63,41 @@ class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService
         return updateById(product, false)
     }
 
-    private fun validateProductExists(id: Long?): Product {
-        if (id == null) {
-            throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS)
+    /**
+     * 删除产品
+     *
+     * @param id 产品id
+     * @return 是否成功
+     */
+    override fun deleteProduct(id: Long): Boolean {
+        val dbProduct = validateProductExists(id)
+        if (dbProduct.publish === CommonStatusEnum.ENABLE) {
+            throw exception(ErrorCodeConstants.PRODUCT_PUBLISH_ENABLE)
         }
-        return getById(id) ?: throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS)
+        publishEvent(dbProduct)
+        return removeById(id)
     }
 
-    private fun validateProductCategoryExists(categoryId: Long): ProductCategory {
-        return ProductCategory.selectOneById(categoryId)
+    /**
+     * 获得产品分页列表
+     *
+     * @param pageReqVO 分页参数
+     * @return 产品分页列表
+     */
+    override fun getProductPage(pageReqVO: ProductPageReqVO): PageResult<ProductRespVO> =
+        mapper.selectPage(pageReqVO)
+
+
+    private fun validateProductExists(id: Long?): Product =
+        if (id == null) {
+            throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS)
+        } else getById(id) ?: throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS)
+
+
+    private fun validateProductCategoryExists(categoryId: Long): ProductCategory =
+        ProductCategory.selectOneById(categoryId)
             ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_NOT_EXISTS)
-    }
+
 
     private fun validateProductNameUnique(name: String) {
         if (count(Product::name.eq(name)) > 0) {

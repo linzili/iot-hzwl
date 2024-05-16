@@ -2,8 +2,10 @@ package com.hzwl.iot.module.device.controller.product
 
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
+import com.hzwl.iot.common.pojo.PageResult
 import com.hzwl.iot.framework.web.pojo.R
 import com.hzwl.iot.framework.web.pojo.R.Companion.ok
+import com.hzwl.iot.module.device.controller.product.vo.product.ProductPageReqVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductRespVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductSaveReqVO
 import com.hzwl.iot.module.device.enums.ErrorCodeConstants
@@ -32,6 +34,17 @@ class ProductController(
     @Operation(summary = "修改产品")
     fun updateProduct(@RequestBody updateReqVo: ProductSaveReqVO): R<Boolean> =
         ok(productService.updateProduct(updateReqVo))
+
+    @DeleteMapping("{id}")
+    @Operation(summary = "删除产品")
+    fun deleteProduct(@PathVariable("id") id: Long): R<Boolean> {
+        return ok(productService.deleteProduct(id))
+    }
+
+    @GetMapping("page")
+    @Operation(summary = "分页查询产品列表")
+    fun getProductPage(pageReqVO: ProductPageReqVO): R<PageResult<ProductRespVO>> =
+        ok(productService.getProductPage(pageReqVO))
 
 
     @GetMapping("{id}")

@@ -12,4 +12,5 @@ object ErrorCodeConstants {
     // ========== 产品分类 1-003-002-000 ==========
     val PRODUCT_NAME_DUPLICATE: ErrorCode = ErrorCode(1003002001, "已经存在该名称的产品")
     val PRODUCT_NOT_EXISTS: ErrorCode = ErrorCode(1003002002, "当前产品不存在")
+    val PRODUCT_PUBLISH_ENABLE: ErrorCode = ErrorCode(1003002003, "当前产品已发布")
 }
