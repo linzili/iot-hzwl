@@ -51,7 +51,7 @@ class DictDataController(
         ok(dictDataService.getSimpleDictDataList())
 
     @GetMapping("page")
-    @Operation(summary = "获得指定字典类型的分页列表")
+    @Operation(summary = "分页查询指定字典类型的字典数据")
     fun getDictDataPageByType(pageReqVo: DictDataPageReqVo): R<PageResult<DictDataRespVO>> =
         ok(dictDataService.getDictDataPage(pageReqVo))
 

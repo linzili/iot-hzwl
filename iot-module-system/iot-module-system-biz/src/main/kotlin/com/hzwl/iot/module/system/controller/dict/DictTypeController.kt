@@ -43,7 +43,7 @@ class DictTypeController(
         ok(dictTypeService.deleteDictType(id))
 
     @GetMapping("page")
-    @Operation(summary = "获得字典类型的分页列表")
+    @Operation(summary = "分页查询字典类型")
     fun getDictTypePage(pageReqVO: DictTypePageReqVO): R<PageResult<DictTypeRespVO>> =
         ok(dictTypeService.getDictTypePage(pageReqVO))
 
