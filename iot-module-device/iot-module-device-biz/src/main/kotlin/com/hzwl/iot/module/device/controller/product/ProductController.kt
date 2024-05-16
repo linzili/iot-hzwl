@@ -11,6 +11,7 @@ import com.hzwl.iot.module.device.controller.product.vo.product.ProductSaveReqVO
 import com.hzwl.iot.module.device.enums.ErrorCodeConstants
 import com.hzwl.iot.module.device.service.product.ProductService
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.*
 
@@ -37,6 +38,7 @@ class ProductController(
 
     @DeleteMapping("{id}")
     @Operation(summary = "删除产品")
+    @Parameter(description = "产品编号", name = "id", required = true, example = "1024")
     fun deleteProduct(@PathVariable("id") id: Long): R<Boolean> {
         return ok(productService.deleteProduct(id))
     }
@@ -49,6 +51,7 @@ class ProductController(
 
     @GetMapping("{id}")
     @Operation(summary = "查询产品信息详情")
+    @Parameter(description = "产品编号", name = "id", required = true, example = "1024")
     fun getProduct(@PathVariable("id") id: Long): R<ProductRespVO> {
         val product = productService.getById(id) ?: throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS)
         return ok(convert(product, ProductRespVO::class.java))
