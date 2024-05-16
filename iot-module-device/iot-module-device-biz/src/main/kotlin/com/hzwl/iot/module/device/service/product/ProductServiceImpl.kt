@@ -23,7 +23,7 @@ class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService
     override fun createProduct(createReqVo: ProductSaveReqVO): Long {
         validateProductNameUnique(createReqVo.name!!)
 
-        val category = validateProductCategoryExists(createReqVo.categoryId)
+        val category = createReqVo.categoryId?.let { validateProductCategoryExists(it) }
 
         val product = convert(createReqVo, Product::class.java)
 
@@ -36,12 +36,39 @@ class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService
         return product.id!!
     }
 
-    private fun validateProductCategoryExists(categoryId: Long?): ProductCategory? {
-        categoryId?.let {
-            return ProductCategory.selectOneById(categoryId)
-                ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_NOT_EXISTS)
+    /**
+     * 修改产品
+     *
+     * @param updateReqVo 产品信息
+     * @return 是否成功
+     */
+    override fun updateProduct(updateReqVo: ProductSaveReqVO): Boolean {
+        val dbProduct = validateProductExists(updateReqVo.id)
 
-        } ?: return null
+        validateProductNameUnique(updateReqVo.name!!)
+
+        val category = updateReqVo.categoryId?.let { validateProductCategoryExists(it) }
+
+        val product = convert(updateReqVo, Product::class.java)
+
+        product.publish = dbProduct.publish
+        product.configuration = dbProduct.configuration
+
+        if (category != null) product.categoryName = category.name else product.categoryName = null
+
+        return updateById(product, false)
+    }
+
+    private fun validateProductExists(id: Long?): Product {
+        if (id == null) {
+            throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS)
+        }
+        return getById(id) ?: throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS)
+    }
+
+    private fun validateProductCategoryExists(categoryId: Long): ProductCategory {
+        return ProductCategory.selectOneById(categoryId)
+            ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_NOT_EXISTS)
     }
 
     private fun validateProductNameUnique(name: String) {
@@ -49,6 +76,5 @@ class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService
             throw exception(ErrorCodeConstants.PRODUCT_NAME_DUPLICATE)
         }
     }
-
 
 }

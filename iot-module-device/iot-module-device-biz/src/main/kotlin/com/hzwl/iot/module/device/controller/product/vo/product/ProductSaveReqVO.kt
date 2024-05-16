@@ -1,11 +1,14 @@
 package com.hzwl.iot.module.device.controller.product.vo.product
 
+import com.hzwl.iot.module.device.dal.entity.product.Product
 import com.hzwl.iot.module.device.enums.DeviceTypeEnum
+import io.github.linpeilie.annotations.AutoMapper
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 
-@Schema(description = "产品创建/修改 Request VO")
+@Schema(description = "设备管理 - 产品创建/修改 Request VO")
+@AutoMapper(target = Product::class)
 data class ProductSaveReqVO(
     @Schema(description = "产品编号", example = "1")
     val id: Long? = null,

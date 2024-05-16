@@ -1,15 +1,16 @@
 package com.hzwl.iot.module.device.controller.product
 
+import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
+import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.framework.web.pojo.R
 import com.hzwl.iot.framework.web.pojo.R.Companion.ok
+import com.hzwl.iot.module.device.controller.product.vo.product.ProductRespVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductSaveReqVO
+import com.hzwl.iot.module.device.enums.ErrorCodeConstants
 import com.hzwl.iot.module.device.service.product.ProductService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 /**
  * 产品控制器
@@ -24,6 +25,21 @@ class ProductController(
 
     @PostMapping
     @Operation(summary = "创建产品")
-    fun createProduct(@RequestBody createReqVo: ProductSaveReqVO): R<Long> = ok(productService.createProduct(createReqVo))
+    fun createProduct(@RequestBody createReqVo: ProductSaveReqVO): R<Long> =
+        ok(productService.createProduct(createReqVo))
+
+    @PutMapping
+    @Operation(summary = "修改产品")
+    fun updateProduct(@RequestBody updateReqVo: ProductSaveReqVO): R<Boolean> =
+        ok(productService.updateProduct(updateReqVo))
+
+
+    @GetMapping("{id}")
+    @Operation(summary = "查询产品信息详情")
+    fun getProduct(@PathVariable("id") id: Long): R<ProductRespVO> {
+        val product = productService.getById(id) ?: throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS)
+        return ok(convert(product, ProductRespVO::class.java))
+    }
+
 
 }

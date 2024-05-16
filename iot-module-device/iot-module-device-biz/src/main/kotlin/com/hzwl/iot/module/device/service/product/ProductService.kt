@@ -10,8 +10,16 @@ interface ProductService : IService<Product> {
      * 创建产品
      *
      * @param createReqVo 产品信息
-     * @return
+     * @return 产品id
      */
     fun createProduct(createReqVo: ProductSaveReqVO): Long
+
+    /**
+     * 修改产品
+     *
+     * @param updateReqVo 产品信息
+     * @return 是否成功
+     */
+    fun updateProduct(updateReqVo: ProductSaveReqVO): Boolean
 
 }
