@@ -57,5 +57,10 @@ class ProductController(
         return ok(convert(product, ProductRespVO::class.java))
     }
 
+    @GetMapping("list-all-simple")
+    @Operation(summary = "获取产品精简信息列表", description = "只包含已发布的产品")
+    fun listSimpleProducts(): R<List<ProductRespVO>> {
+        return ok(productService.listSimpleProducts())
+    }
 
 }
