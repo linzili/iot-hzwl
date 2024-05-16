@@ -16,8 +16,8 @@ import org.apache.ibatis.annotations.Mapper
 @Mapper
 @JvmDefaultWithCompatibility
 interface DictTypeMapper : BaseMapper<DictType> {
-    fun selectPage(pageReqVO: DictTypePageReqVO): PageResult<DictTypeRespVO> {
-        return paginateAs<DictTypeRespVO>(pageReqVO) {
+    fun selectPage(pageReqVO: DictTypePageReqVO): PageResult<DictTypeRespVO> =
+        paginateAs<DictTypeRespVO>(pageReqVO) {
             andAll(
                 DictType::name like pageReqVO.name,
                 DictType::type like pageReqVO.type,
@@ -26,7 +26,7 @@ interface DictTypeMapper : BaseMapper<DictType> {
             )
             orderBy(+DictType::id)
         }
-    }
+
 }
 
 

@@ -71,9 +71,9 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
      * @param pageReqVO 分页参数
      * @return
      */
-    override fun getDictTypePage(pageReqVO: DictTypePageReqVO): PageResult<DictTypeRespVO> {
-        return mapper.selectPage(pageReqVO)
-    }
+    override fun getDictTypePage(pageReqVO: DictTypePageReqVO): PageResult<DictTypeRespVO> =
+        mapper.selectPage(pageReqVO)
+
 
     /**
      * 获取全部字典类型精简列表
@@ -90,11 +90,10 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
      *
      * @param id 字典类型编号
      */
-    private fun validateDictTypeExists(id: Long?): DictType {
+    private fun validateDictTypeExists(id: Long?): DictType =
         id?.let {
             return getById(it) ?: throw exception(ErrorCodeConstants.DICT_TYPE_NOT_EXISTS)
         } ?: throw exception(ErrorCodeConstants.DICT_TYPE_NOT_EXISTS)
-    }
 
     /**
      * 校验字典类型是否唯一
