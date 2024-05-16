@@ -29,18 +29,6 @@ class ValidatedAspect(val validator: Validator) {
             }
         }
 
-//        // 获取请求体对象
-//        val body = AspectUtil.getBody(proceedingJoinPoint)
-//        // 如果请求体对象不为空，则进行参数娇艳
-//        if (body != null) {
-//            // 进行校验
-//            val validateResult = validator.validate(body)
-//            if (validateResult.isNotEmpty()) {
-//                // 校验未通过，抛出一场，响应状态码为400
-//                val info = validateResult.joinToString(",") { it.message }
-//                throw RuntimeException(info)
-//            }
-//        }
         // 校验通过，执行原方法
         return proceedingJoinPoint.proceed(proceedingJoinPoint.args)
     }
