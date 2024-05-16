@@ -1,6 +1,7 @@
 package com.hzwl.iot.module.system.service.dict
 
 import cn.hutool.extra.spring.SpringUtil.publishEvent
+import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.common.pojo.PageResult
@@ -81,7 +82,9 @@ class DictTypeServiceImpl : ServiceImpl<DictTypeMapper, DictType>(), DictTypeSer
      * @return
      */
     override fun getSimpleDictTypeList(): List<DictTypeSimpleRespVO> {
-        return mapper.selectListByQueryAs<DictTypeSimpleRespVO> {}
+        return mapper.selectListByQueryAs<DictTypeSimpleRespVO> {
+            where(DictType::status eq CommonStatusEnum.ENABLE)
+        }
     }
 
 

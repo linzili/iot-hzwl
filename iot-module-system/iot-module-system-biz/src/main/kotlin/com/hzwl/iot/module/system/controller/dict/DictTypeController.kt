@@ -56,7 +56,7 @@ class DictTypeController(
     }
 
     @GetMapping("list-all-simple")
-    @Operation(summary = "获取字典类型精简信息列表", description = "只包含被开启的字典类型, 且模拟一个 tree 结构")
+    @Operation(summary = "获取字典类型精简信息列表", description = "只包含被开启的字典类型")
     fun getSimpleDictTypes(): R<List<DictTypeSimpleRespVO>> =
         ok(dictTypeService.getSimpleDictTypeList())
 }
