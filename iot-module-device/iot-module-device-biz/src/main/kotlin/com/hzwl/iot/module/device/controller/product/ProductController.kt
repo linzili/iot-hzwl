@@ -69,16 +69,14 @@ class ProductController(
     @PutMapping("{id}/publish")
     @Operation(summary = "发布产品")
     @Parameter(description = "产品编号", name = "id", required = true, example = "1024")
-    fun publishProduct(@PathVariable("id") id: Long): R<Boolean> {
-        return ok(productService.publishProduct(id))
-    }
+    fun publishProduct(@PathVariable("id") id: Long): R<Boolean> = ok(productService.publishProduct(id))
+
 
     @PutMapping("{id}/unpublish")
     @Operation(summary = "取消发布产品")
     @Parameter(description = "产品编号", name = "id", required = true, example = "1024")
-    fun unpublishProduct(@PathVariable("id") id: Long): R<Boolean> {
-        return ok(productService.unpublishProduct(id))
-    }
+    fun unpublishProduct(@PathVariable("id") id: Long): R<Boolean> = ok(productService.unpublishProduct(id))
+
 
     @PutMapping("{id}/config")
     @Operation(summary = "修改产品配置")
