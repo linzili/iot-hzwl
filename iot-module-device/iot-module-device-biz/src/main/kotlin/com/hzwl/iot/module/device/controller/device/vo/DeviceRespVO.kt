@@ -36,5 +36,5 @@ data class DeviceRespVO(
 
     @Schema(description = "创建时间", required = true)
     @ReverseAutoMapping(dateFormat = "yyyy-MM-dd HH:mm:ss")
-    val createTime: String,
+    var createTime: String,
 )
