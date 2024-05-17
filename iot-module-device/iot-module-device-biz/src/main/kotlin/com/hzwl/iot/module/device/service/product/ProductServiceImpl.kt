@@ -20,7 +20,9 @@ import com.mybatisflex.spring.service.impl.ServiceImpl
 import org.springframework.stereotype.Service
 
 @Service
-class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService {
+class ProductServiceImpl(
+    val productCategoryService: ProductCategoryService
+) : ServiceImpl<ProductMapper, Product>(), ProductService {
     /**
      * 创建产品
      *
@@ -74,9 +76,11 @@ class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService
      */
     override fun deleteProduct(id: Long): Boolean {
         val dbProduct = validateProductExists(id)
+
         validateProductNotPublish(dbProduct)
 
         publishEvent(dbProduct)
+
         return removeById(id)
     }
 
@@ -131,7 +135,6 @@ class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService
 
         validateProductPublish(product)
 
-        // todo: 校验产品下是否存在设备
         product.publish = CommonStatusEnum.DISABLE
 
         return updateById(product)
@@ -151,6 +154,21 @@ class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService
             Product::configuration set config
             where(Product::id eq id)
         } == 1
+    }
+
+    /**
+     * 校验产品是否存在
+     *
+     * @param productId
+     * @return 产品信息
+     */
+    override fun validateProductExistAndPublish(productId: Long): Product {
+
+        val product = getById(productId) ?: throw exception(ErrorCodeConstants.PRODUCT_NOT_EXISTS)
+        if (product.publish === CommonStatusEnum.DISABLE) {
+            throw exception(ErrorCodeConstants.PRODUCT_PUBLISH_DISABLE)
+        }
+        return product
     }
 
 
@@ -183,7 +201,7 @@ class ProductServiceImpl : ServiceImpl<ProductMapper, Product>(), ProductService
 
 
     private fun validateProductCategoryExists(categoryId: Long): ProductCategory =
-        ProductCategory.selectOneById(categoryId)
+        productCategoryService.getById(categoryId)
             ?: throw exception(ErrorCodeConstants.PRODUCT_CATEGORY_NOT_EXISTS)
 
 

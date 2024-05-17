@@ -74,4 +74,12 @@ interface ProductService : IService<Product> {
      */
     fun updateProductConfig(id: Long, config: Map<String, Any>): Boolean
 
+    /**
+     * 校验产品是否存在
+     *
+     * @param productId
+     * @return 产品信息
+     */
+    fun validateProductExistAndPublish(productId: Long): Product
+
 }

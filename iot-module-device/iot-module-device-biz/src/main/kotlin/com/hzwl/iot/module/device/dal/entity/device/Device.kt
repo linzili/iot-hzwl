@@ -2,10 +2,12 @@ package com.hzwl.iot.module.device.dal.entity.device
 
 import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.framework.mybatis.core.entity.TenantEntity
+import com.hzwl.iot.module.device.dal.mapper.device.DeviceMapper
 import com.mybatisflex.annotation.Id
 import com.mybatisflex.annotation.KeyType
 import com.mybatisflex.annotation.Table
 import com.mybatisflex.core.keygen.KeyGenerators
+import com.mybatisflex.kotlin.extensions.db.mapper
 
 
 @Table("device_device")
@@ -27,8 +29,6 @@ data class Device(
     val description: String?,
 
     val remark: String?,
-
     ) : TenantEntity() {
-
-
+    companion object : DeviceMapper by mapper()
 }
