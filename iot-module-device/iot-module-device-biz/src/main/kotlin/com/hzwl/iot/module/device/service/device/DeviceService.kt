@@ -1,5 +1,8 @@
 package com.hzwl.iot.module.device.service.device
 
+import com.hzwl.iot.common.pojo.PageResult
+import com.hzwl.iot.module.device.controller.device.vo.DevicePageReqVO
+import com.hzwl.iot.module.device.controller.device.vo.DeviceRespVO
 import com.hzwl.iot.module.device.controller.device.vo.DeviceSaveReqVO
 import com.hzwl.iot.module.device.dal.entity.device.Device
 import com.mybatisflex.core.service.IService
@@ -29,5 +32,14 @@ interface DeviceService : IService<Device> {
      * @return 是否成功
      */
     fun deleteDevice(id: String): Boolean
+
+
+    /**
+     * 分页查询设备
+     *
+     * @param pageReqVO
+     * @return 分页列表
+     */
+    fun getDevicePage(pageReqVO: DevicePageReqVO): PageResult<DeviceRespVO>
 
 }

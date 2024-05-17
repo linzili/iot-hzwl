@@ -4,6 +4,9 @@ import cn.hutool.extra.spring.SpringUtil.publishEvent
 import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
+import com.hzwl.iot.common.pojo.PageResult
+import com.hzwl.iot.module.device.controller.device.vo.DevicePageReqVO
+import com.hzwl.iot.module.device.controller.device.vo.DeviceRespVO
 import com.hzwl.iot.module.device.controller.device.vo.DeviceSaveReqVO
 import com.hzwl.iot.module.device.dal.entity.device.Device
 import com.hzwl.iot.module.device.dal.mapper.device.DeviceMapper
@@ -71,6 +74,16 @@ class DeviceServiceImpl(
         }
         publishEvent(device)
         return removeById(id)
+    }
+
+    /**
+     * 分页查询设备
+     *
+     * @param pageReqVO
+     * @return 分页列表
+     */
+    override fun getDevicePage(pageReqVO: DevicePageReqVO): PageResult<DeviceRespVO> {
+       return mapper.selectPage(pageReqVO)
     }
 
 
