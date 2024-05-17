@@ -22,7 +22,7 @@ data class Device(
 
     val productId: Long,
 
-    var productName: String,
+    var productName: String?,
 
     val status: CommonStatusEnum,
 
