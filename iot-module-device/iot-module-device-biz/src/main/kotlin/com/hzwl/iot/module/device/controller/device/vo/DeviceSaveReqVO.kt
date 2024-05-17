@@ -24,7 +24,7 @@ data class DeviceSaveReqVO(
     val photoUrl: String?,
 
     @Schema(description = "产品编号", required = true, example = "1024")
-    @field:NotBlank(message = "产品编号不能为空")
+    @field:NotNull(message = "产品编号不能为空")
     val productId: Long?,
 
     @Schema(description = "设备状态", required = true, example = "1")

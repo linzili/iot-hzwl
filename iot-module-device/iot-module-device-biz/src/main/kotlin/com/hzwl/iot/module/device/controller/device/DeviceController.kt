@@ -3,8 +3,8 @@ package com.hzwl.iot.module.device.controller.device
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.common.pojo.PageResult
-import com.hzwl.iot.framework.web.pojo.R
-import com.hzwl.iot.framework.web.pojo.R.Companion.ok
+import com.hzwl.iot.common.pojo.R
+import com.hzwl.iot.common.pojo.R.Companion.ok
 import com.hzwl.iot.module.device.controller.device.vo.DevicePageReqVO
 import com.hzwl.iot.module.device.controller.device.vo.DeviceRespVO
 import com.hzwl.iot.module.device.controller.device.vo.DeviceSaveReqVO
@@ -27,12 +27,12 @@ class DeviceController(
 ) {
     @PostMapping
     @Operation(summary = "创建设备")
-    fun createDevice(createReqVO: DeviceSaveReqVO): R<String> =
+    fun createDevice(@RequestBody createReqVO: DeviceSaveReqVO): R<String> =
         ok(deviceService.createDevice(createReqVO))
 
     @PutMapping
     @Operation(summary = "修改设备")
-    fun updateDevice(updateReqVO: DeviceSaveReqVO): R<Boolean> =
+    fun updateDevice(@RequestBody updateReqVO: DeviceSaveReqVO): R<Boolean> =
         ok(deviceService.updateDevice(updateReqVO))
 
     @DeleteMapping("{id}")

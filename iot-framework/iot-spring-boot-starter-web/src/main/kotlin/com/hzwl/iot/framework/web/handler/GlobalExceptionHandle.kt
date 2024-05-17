@@ -1,10 +1,10 @@
-package com.hzwl.iot.framework.web.handle
+package com.hzwl.iot.framework.web.handler
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.hzwl.iot.common.exception.ServiceException
 import com.hzwl.iot.common.exception.enums.GlobalErrorCodeConstants.INTERNAL_SERVER_ERROR
 import com.hzwl.iot.common.extensions.log
-import com.hzwl.iot.framework.web.pojo.R
+import com.hzwl.iot.common.pojo.R
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.ConstraintViolation
 import jakarta.validation.ConstraintViolationException
@@ -104,6 +104,7 @@ class GlobalExceptionHandle {
         log.error("请求资源不存在 -> $exception")
         return R.fail(HttpStatus.NOT_FOUND.value(), "请求资源不存在:${exception.resourcePath}")
     }
+
 
     /**
      * 处理系统异常，兜底处理所有的一切

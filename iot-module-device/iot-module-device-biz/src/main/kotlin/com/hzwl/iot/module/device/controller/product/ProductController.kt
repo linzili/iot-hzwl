@@ -3,8 +3,8 @@ package com.hzwl.iot.module.device.controller.product
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.common.pojo.PageResult
-import com.hzwl.iot.framework.web.pojo.R
-import com.hzwl.iot.framework.web.pojo.R.Companion.ok
+import com.hzwl.iot.common.pojo.R
+import com.hzwl.iot.common.pojo.R.Companion.ok
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductPageReqVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductRespVO
 import com.hzwl.iot.module.device.controller.product.vo.product.ProductSaveReqVO

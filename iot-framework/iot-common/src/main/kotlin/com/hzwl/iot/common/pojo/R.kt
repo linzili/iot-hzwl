@@ -1,4 +1,4 @@
-package com.hzwl.iot.framework.web.pojo
+package com.hzwl.iot.common.pojo
 
 import io.swagger.v3.oas.annotations.media.Schema
 

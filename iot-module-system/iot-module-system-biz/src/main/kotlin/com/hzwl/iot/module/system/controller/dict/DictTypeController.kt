@@ -3,8 +3,8 @@ package com.hzwl.iot.module.system.controller.dict
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
 import com.hzwl.iot.common.pojo.PageResult
-import com.hzwl.iot.framework.web.pojo.R
-import com.hzwl.iot.framework.web.pojo.R.Companion.ok
+import com.hzwl.iot.common.pojo.R
+import com.hzwl.iot.common.pojo.R.Companion.ok
 import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypePageReqVO
 import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypeRespVO
 import com.hzwl.iot.module.system.controller.dict.vo.type.DictTypeSaveReqVO

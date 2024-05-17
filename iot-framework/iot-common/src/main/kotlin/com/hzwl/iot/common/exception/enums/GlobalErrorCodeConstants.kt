@@ -18,6 +18,7 @@ object GlobalErrorCodeConstants {
 
     // ========== 服务端错误段 ==========
     val INTERNAL_SERVER_ERROR: ErrorCode = ErrorCode(500, "系统异常")
+    val DATA_BASES_ERROR: ErrorCode = ErrorCode(500, "数据库异常")
     val NOT_IMPLEMENTED: ErrorCode = ErrorCode(501, "功能未实现/未开启")
     val ERROR_CONFIGURATION: ErrorCode = ErrorCode(502, "错误的配置项")
 

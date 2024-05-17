@@ -10,8 +10,8 @@ enum class DeviceTypeEnum(
     override val value: Int,
     val description: String,
 ) : IEnum<Int> {
-    GATEWAY(1, "网关设备"),
-    DIRECT(2, "直连设备"),
+    DIRECT(1, "直连设备"),
+    GATEWAY(2, "网关设备"),
     SUB_DEVICE(3, "网关子设备")
     ;
 }
