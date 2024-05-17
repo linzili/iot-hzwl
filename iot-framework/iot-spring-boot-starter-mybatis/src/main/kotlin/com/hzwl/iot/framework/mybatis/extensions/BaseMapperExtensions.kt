@@ -80,7 +80,7 @@ inline fun <T> BaseMapper<T>.selectListByCondition(
 /**
  * 根据条件查询数据列表
  *
- * @param T
+ * @param R 返回类型
  * @param condition 查询条件
  * @return 数据列表
  */
