@@ -19,4 +19,4 @@ springdoc:
         - "/system/**"
     - group: "device-module"
       paths-to-match:
-        - "/device/**"
+        - "/device-manager/**"
