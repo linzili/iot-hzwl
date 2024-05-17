@@ -91,6 +91,19 @@ inline fun <reified R : Any> BaseMapper<*>.selectListByConditionAs(
 }
 
 /**
+ * 根据条件查询数量
+ *
+ * @param condition
+ * @receiver
+ * @return
+ */
+inline fun BaseMapper<*>.selectCountByCondition(
+    condition: () -> QueryCondition
+): Long {
+    return selectCountByQuery(queryScope(init = { and(condition()) }))
+}
+
+/**
  * 查询实体类及其 Relation 注解字段。
  * @param R 接收数据类型
  * @param init  查询作用域
