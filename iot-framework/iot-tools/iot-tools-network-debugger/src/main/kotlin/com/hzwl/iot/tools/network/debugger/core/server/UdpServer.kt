@@ -34,13 +34,7 @@ class UdpServer(
             if (addressParts.size == 2) {
                 val inetAddress = addressParts[0]
                 val port = addressParts[1].toInt()
-                val data = event.data?.let {
-                    if (event.hex == true) {
-                        it.toByteArray()
-                    } else {
-                        it.toHexString().toByteArray()
-                    }
-                } ?: ByteArray(0)
+                val data = event.data?.toByteArray() ?: ByteArray(0)
                 val packet = DatagramPacket(data, data.size, InetSocketAddress(inetAddress, port))
                 socket.send(packet)
             }

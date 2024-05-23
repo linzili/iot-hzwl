@@ -45,13 +45,7 @@ class TcpServer(
 
     override fun sendMessage(event: Event) {
         clients[event.client]?.let {
-            val data = event.data?.let { msg ->
-                if (event.hex == true) {
-                    msg.toByteArray()
-                } else {
-                    msg.toHexString().toByteArray()
-                }
-            } ?: ByteArray(0)
+            val data = event.data?.toByteArray() ?: ByteArray(0)
             it.getOutputStream().write(data)
             it.getOutputStream().flush()
         }
@@ -65,7 +59,7 @@ class TcpServer(
                 var bytesRead: Int
 
                 try {
-                    while (it.isConnected) {
+                    while (!it.isClosed) {
                         bytesRead = reader.read(buffer)
                         if (bytesRead == -1) break
                         if (bytesRead > 0) {

@@ -22,13 +22,18 @@ class NetworkDebuggerEndpoint {
 
     @OnMessage
     fun onMessage(session: Session, message: String) {
-        val event = ObjectMapper().readValue(message, Event::class.java)
+        val event = try {
+            ObjectMapper().readValue(message, Event::class.java)
+        } catch (_: RuntimeException) {
+            handleError(session, "发送消息格式有误")
+            return
+        }
         when (event.action) {
             NEW -> {
                 val type = event.type
                 val port = NetworkHelper.getRandomPort()
                 serverIdMap[session.id]?.let {
-                    serverManager.closeServer(it)
+                    handleError(session, "一个连接只能开启一个服务")
                 }
                 try {
                     serverManager.createServer(type!!, port) { handleEvent(it, session) }
@@ -76,6 +81,14 @@ class NetworkDebuggerEndpoint {
         )
     }
 
+    fun handleError(session: Session, msg: String) {
+        session.basicRemote?.sendText(
+            JSONUtil.createObj()
+                .set("action", "error")
+                .set("data", msg)
+                .toString()
+        )
+    }
     @OnClose
     fun onClose(session: Session) {
         serverIdMap[session.id]?.let { serverManager.closeServer(it) }

@@ -1,0 +1,28 @@
+@startuml
+actor User
+participant WebApp
+participant TCP_Server
+
+User -> WebApp: Click "Open TCP Port" Button
+WebApp -> TCP_Server: Open TCP Port
+TCP_Server -> WebApp: Return IP:Port
+WebApp -> User: Display IP:Port
+
+User -> TCP_Server: Connect to IP:Port
+TCP_Server -> WebApp: Notify New Connection
+WebApp -> User: Update Connection List
+
+User -> WebApp: Send Data
+WebApp -> TCP_Server: Forward Data
+TCP_Server -> Connected_Device: Send Data
+
+Connected_Device -> TCP_Server: Send Data
+TCP_Server -> WebApp: Forward Data
+WebApp -> User: Display Data
+
+User -> WebApp: Close TCP Port
+WebApp -> TCP_Server: Close Connection
+TCP_Server -> WebApp: Notify Disconnection
+WebApp -> User: Update Connection List
+@enduml
+

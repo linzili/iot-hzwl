@@ -1,0 +1,47 @@
+@startuml
+start
+
+:User clicks "Open TCP Port" button;
+:WebApp opens TCP port;
+:TCP_Server starts and returns IP:Port;
+:WebApp displays IP:Port;
+
+partition User {
+  :User connects to IP:Port;
+}
+
+partition TCP_Server {
+  :TCP_Server notifies WebApp of new connection;
+}
+
+:WebApp updates connection list;
+
+partition User {
+  :User sends data;
+}
+
+partition WebApp {
+  :WebApp forwards data to TCP_Server;
+}
+
+partition TCP_Server {
+  :TCP_Server sends data to Connected_Device;
+}
+
+partition Connected_Device {
+  :Connected_Device sends data;
+}
+
+partition TCP_Server {
+  :TCP_Server forwards data to WebApp;
+}
+
+:WebApp displays received data;
+
+:User closes TCP port;
+:WebApp closes connection;
+:TCP_Server notifies WebApp of disconnection;
+:WebApp updates connection list;
+
+stop
+@enduml
