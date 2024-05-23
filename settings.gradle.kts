@@ -33,6 +33,16 @@ findProject(":iot-framework:iot-spring-boot-starter-mybatis")?.name = "iot-sprin
 include("iot-framework:iot-spring-boot-starter-web")
 findProject(":iot-framework:iot-spring-boot-starter-web")?.name = "iot-spring-boot-starter-web"
 
+include("iot-framework:iot-spring-boot-starter-websocket")
+findProject(":iot-framework:iot-spring-boot-starter-websocket")?.name = "iot-spring-boot-starter-websocket"
+
+include("iot-framework:iot-tools")
+findProject(":iot-framework:iot-tools")?.name = "iot-tools"
+
+
+include("iot-framework:iot-tools:iot-tools-network-debugger")
+findProject(":iot-framework:iot-tools:iot-tools-network-debugger")?.name = "iot-tools-network-debugger"
+
 include("iot-module-system")
 include("iot-module-system:iot-module-system-biz")
 findProject(":iot-module-system:iot-module-system-biz")?.name = "iot-module-system-biz"
@@ -44,3 +54,10 @@ include("iot-module-device:iot-module-device-api")
 findProject(":iot-module-device:iot-module-device-api")?.name = "iot-module-device-api"
 include("iot-module-device:iot-module-device-biz")
 findProject(":iot-module-device:iot-module-device-biz")?.name = "iot-module-device-biz"
+
+
+include("iot-module-tools")
+include("iot-module-tools:iot-module-tools-api")
+findProject(":iot-module-tools:iot-module-tools-api")?.name = "iot-module-tools-api"
+include("iot-module-tools:iot-module-tools-biz")
+findProject(":iot-module-tools:iot-module-tools-biz")?.name = "iot-module-tools-biz"

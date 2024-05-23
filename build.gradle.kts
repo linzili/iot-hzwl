@@ -31,7 +31,6 @@ ext {
 }
 subprojects {
     apply {
-        plugin("java")
         plugin("java-library")
         plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")

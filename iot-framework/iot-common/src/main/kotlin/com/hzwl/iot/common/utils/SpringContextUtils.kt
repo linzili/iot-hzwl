@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
  * @author lin
  */
 @Component
-class SpringContextUtil : ApplicationContextAware, ApplicationEventPublisherAware {
+class SpringContextUtils : ApplicationContextAware, ApplicationEventPublisherAware {
     /**
      * Set the ApplicationContext that this object runs in.
      * Normally this call will be used to initialize the object.
