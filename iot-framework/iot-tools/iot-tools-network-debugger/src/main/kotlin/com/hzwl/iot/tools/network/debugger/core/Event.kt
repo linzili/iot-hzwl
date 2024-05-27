@@ -8,4 +8,5 @@ class Event(
     val hex: Boolean? = null,
     val port: Int? = null,
     val type: String? = null,
+    val host:String? = null
 )
