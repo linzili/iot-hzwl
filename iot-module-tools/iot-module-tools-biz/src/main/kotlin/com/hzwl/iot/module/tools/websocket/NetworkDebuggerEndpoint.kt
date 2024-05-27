@@ -4,6 +4,7 @@ import cn.hutool.extra.spring.SpringUtil
 import cn.hutool.json.JSONUtil
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hzwl.iot.common.utils.NetworkHelper
+import com.hzwl.iot.module.tools.properties.ToolsProperties
 import com.hzwl.iot.tools.network.debugger.core.ActionEnum.*
 import com.hzwl.iot.tools.network.debugger.core.Event
 import com.hzwl.iot.tools.network.debugger.core.manager.ServerManager
@@ -18,7 +19,10 @@ import org.springframework.stereotype.Component
 class NetworkDebuggerEndpoint {
 
     private val serverIdMap = mutableMapOf<String, Int>()
+
     val serverManager: ServerManager = SpringUtil.getBean(ServerManager::class.java)
+
+    val toolsProperties: ToolsProperties = SpringUtil.getBean(ToolsProperties::class.java)
 
     @OnMessage
     fun onMessage(session: Session, message: String) {
@@ -74,6 +78,7 @@ class NetworkDebuggerEndpoint {
 
                 PORT -> obj
                     .set("port", event.port)
+                    .set("host",toolsProperties.ip)
                     .toString()
 
                 else -> ""

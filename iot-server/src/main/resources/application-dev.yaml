@@ -6,3 +6,7 @@ spring:
     hikari:
       keepalive-time: 60000
       connection-test-query: select 1
+iot:
+  tools:
+    network-debugger:
+      ip: 127.0.0.1
