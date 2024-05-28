@@ -14,12 +14,18 @@
             <option value="$PROJECT_DIR$/iot-framework/iot-spring-boot-starter-mybatis" />
             <option value="$PROJECT_DIR$/iot-framework/iot-spring-boot-starter-security" />
             <option value="$PROJECT_DIR$/iot-framework/iot-spring-boot-starter-web" />
+            <option value="$PROJECT_DIR$/iot-framework/iot-spring-boot-starter-websocket" />
+            <option value="$PROJECT_DIR$/iot-framework/iot-tools" />
+            <option value="$PROJECT_DIR$/iot-framework/iot-tools/iot-tools-network-debugger" />
             <option value="$PROJECT_DIR$/iot-module-device" />
             <option value="$PROJECT_DIR$/iot-module-device/iot-module-device-api" />
             <option value="$PROJECT_DIR$/iot-module-device/iot-module-device-biz" />
             <option value="$PROJECT_DIR$/iot-module-system" />
             <option value="$PROJECT_DIR$/iot-module-system/iot-module-system-api" />
             <option value="$PROJECT_DIR$/iot-module-system/iot-module-system-biz" />
+            <option value="$PROJECT_DIR$/iot-module-tools" />
+            <option value="$PROJECT_DIR$/iot-module-tools/iot-module-tools-api" />
+            <option value="$PROJECT_DIR$/iot-module-tools/iot-module-tools-biz" />
             <option value="$PROJECT_DIR$/iot-server" />
           </set>
         </option>

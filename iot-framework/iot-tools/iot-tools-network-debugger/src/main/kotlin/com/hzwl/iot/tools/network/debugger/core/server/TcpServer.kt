@@ -1,10 +1,12 @@
 package com.hzwl.iot.tools.network.debugger.core.server
 
+import com.hzwl.iot.common.extensions.fromHexString
 import com.hzwl.iot.common.extensions.toHexString
 import com.hzwl.iot.tools.network.debugger.core.ActionEnum
 import com.hzwl.iot.tools.network.debugger.core.Event
 import java.net.ServerSocket
 import java.net.Socket
+import java.time.Instant
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.concurrent.thread
@@ -45,7 +47,11 @@ class TcpServer(
 
     override fun sendMessage(event: Event) {
         clients[event.client]?.let {
-            val data = event.data?.toByteArray() ?: ByteArray(0)
+            val data = if (event.hex == true) {
+                event.data?.fromHexString()?.toByteArray()
+            } else {
+                event.data?.toByteArray()
+            }?: ByteArray(0)
             it.getOutputStream().write(data)
             it.getOutputStream().flush()
         }
@@ -77,5 +83,9 @@ class TcpServer(
         }
     }
 
-    private fun generateClientId(): String = clientIdCounter.incrementAndGet().toString()
+    private fun generateClientId(): String {
+        val timestamp = Instant.now().epochSecond
+        val counter = clientIdCounter.incrementAndGet()
+        return "$timestamp-$counter"
+    }
 }

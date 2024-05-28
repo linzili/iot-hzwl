@@ -1,5 +1,6 @@
 package com.hzwl.iot.tools.network.debugger.core.server
 
+import com.hzwl.iot.common.extensions.fromHexString
 import com.hzwl.iot.common.extensions.toHexString
 import com.hzwl.iot.common.utils.BidirectionalMap
 import com.hzwl.iot.tools.network.debugger.core.ActionEnum
@@ -7,6 +8,7 @@ import com.hzwl.iot.tools.network.debugger.core.Event
 import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetSocketAddress
+import java.time.Instant
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.concurrent.thread
 
@@ -34,15 +36,22 @@ class UdpServer(
             if (addressParts.size == 2) {
                 val inetAddress = addressParts[0]
                 val port = addressParts[1].toInt()
-                val data = event.data?.toByteArray() ?: ByteArray(0)
+                val data = if (event.hex == true) {
+                    event.data?.fromHexString()?.toByteArray()
+                } else {
+                    event.data?.toByteArray()
+                }?: ByteArray(0)
                 val packet = DatagramPacket(data, data.size, InetSocketAddress(inetAddress, port))
                 socket.send(packet)
             }
         }
     }
 
-    private fun generateClientId(): String = clientIdCounter.incrementAndGet().toString()
-
+    private fun generateClientId(): String {
+        val timestamp = Instant.now().epochSecond
+        val counter = clientIdCounter.incrementAndGet()
+        return "$timestamp-$counter"
+    }
     private fun handleClient() {
         thread {
             val buffer = ByteArray(1024)
