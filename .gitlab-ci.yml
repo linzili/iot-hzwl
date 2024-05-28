@@ -11,6 +11,7 @@ variables:
   DEPLOY_SHELL: ssh $SERVE_ADDRESS docker run -d --network host --name $CI_PROJECT_NAME $IMAGE_NAME
 
 build:
+  image: openjdk:21
   stage: build
   tags:
     - build
