@@ -10,3 +10,9 @@ spring:
 mybatis-flex:
   configuration:
     log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+
+iot:
+  tools:
+    network-debugger:
+      ip: hanzhenyun.com
