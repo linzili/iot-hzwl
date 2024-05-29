@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("org.springframework.boot") version "3.3.0"
@@ -69,23 +69,17 @@ subprojects {
         maven { url = uri("https://maven.aliyun.com/repository/public/") }
         mavenCentral()
     }
+    kotlin {
+        compilerOptions {
+            freeCompilerArgs.add("-Xjsr305=strict")
+            freeCompilerArgs.add("-Xjvm-default=all")
+            apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
+            jvmTarget.set(JvmTarget.JVM_21)
+        }
+    }
 
     tasks {
         withType(JavaCompile::class) { options.encoding = "UTF-8" }
-        withType(KotlinCompile::class) {
-            kotlinOptions {
-                freeCompilerArgs += listOf("-Xjsr305=strict", "-Xjvm-default=all")
-                jvmTarget = "21"
-            }
-        }
-        withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>()
-            .configureEach {
-                compilerOptions
-                    .languageVersion
-                    .set(
-                        org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
-                    )
-            }
         test { useJUnitPlatform() }
     }
 
