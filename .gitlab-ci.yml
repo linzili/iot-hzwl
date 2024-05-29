@@ -11,12 +11,12 @@ variables:
   DEPLOY_SHELL: ssh $SERVE_ADDRESS docker run -d --network host --name $CI_PROJECT_NAME $IMAGE_NAME
 
 build:
-  image: openjdk:21
+  image: gradle:8.5.0-jdk21
   stage: build
   tags:
     - build
   script:
-    - ./gradlew :iot-server:build
+    - gradle :iot-server:build
     - ls
   artifacts:
     paths:
