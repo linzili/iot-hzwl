@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.2.5"
+    id("org.springframework.boot") version "3.3.0"
     id("io.spring.dependency-management") version "1.1.4"
-    kotlin("jvm") version "1.9.23"
-    kotlin("plugin.spring") version "1.9.23"
-    kotlin("kapt") version "1.9.23"
-    kotlin("plugin.noarg") version "1.9.23"
+    kotlin("jvm") version "2.0.0"
+    kotlin("plugin.spring") version "2.0.0"
+    kotlin("kapt") version "2.0.0"
+    kotlin("plugin.noarg") version "2.0.0"
 }
 
 group = "com.hzwl"
@@ -19,10 +19,9 @@ repositories {
 }
 
 
-
 ext {
     set("mybatis-flex.version", "1.8.9")
-    set("mybatis-flex-kotlin.version", "1.0.8")
+    set("mybatis-flex-kotlin.version", "1.0.9")
     set("mapstruct-plus.version", "1.4.0")
     set("springdoc.version", "2.5.0")
     set("hutool.version", "5.8.27")
@@ -41,7 +40,13 @@ subprojects {
     }
     group = project.group
     version = project.version
-
+    kotlin {
+        sourceSets.all {
+            languageSettings {
+                languageVersion = "2.0"
+            }
+        }
+    }
     noArg {
         annotation("com.mybatisflex.annotation.Table")
         annotation("io.swagger.v3.oas.annotations.media.Schema")
@@ -73,6 +78,14 @@ subprojects {
                 jvmTarget = "21"
             }
         }
+        withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>()
+            .configureEach {
+                compilerOptions
+                    .languageVersion
+                    .set(
+                        org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
+                    )
+            }
         test { useJUnitPlatform() }
     }
 

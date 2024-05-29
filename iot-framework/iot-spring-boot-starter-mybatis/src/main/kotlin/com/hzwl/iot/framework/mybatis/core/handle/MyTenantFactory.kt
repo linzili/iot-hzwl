@@ -9,6 +9,7 @@ import com.mybatisflex.core.tenant.TenantFactory
 class MyTenantFactory : TenantFactory {
 
 
+    @Deprecated("Deprecated in Java")
     override fun getTenantIds(): Array<Any> {
         return arrayOf(1)
     }
