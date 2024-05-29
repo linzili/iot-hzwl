@@ -4,7 +4,7 @@ stages:
   - deployImage
 
 variables:
-  BUILD_SHELL: ''
+  BUILD_SHELL: 'gradle :iot-server:build'
   IMAGE_NAME: "$CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_ID"
   DOCKER_FILE_PATH: "./Dockerfile"
   DELETE_CONTAINER: "true"
@@ -16,7 +16,7 @@ build:
   tags:
     - build
   script:
-    - gradle :iot-server:build
+    - $BUILD_SHELL
     - ls
   artifacts:
     paths:
