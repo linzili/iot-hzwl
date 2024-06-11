@@ -6,6 +6,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,12 +17,12 @@ jobs:
       - name: setup java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: temurin
+          java-version: 21
       - name: setup gradle
         uses: gradle/actions/setup-gradle@v3
       - name: build
-        run: gradle :iot-server:build
+        run: ./gradlew :iot-server:build
 
       - name: Check if JAR exists
         run: ls -l iot-server/build/libs
@@ -118,6 +121,5 @@ jobs:
             REPO_NAME=$(echo ${{ github.repository }} | cut -d'/' -f2)
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
             docker pull ghcr.io/${{ github.repository }}:${{ github.ref_name }}-${{ github.run_id }}
-            if [ $(docker ps -q -f name=$REPO_NAME) ]; then docker rm -f $REPO_NAME; fi
             if [ -n "$(docker ps -q -f name=$REPO_NAME)" ]; then docker rm -f $REPO_NAME; fi
             docker run -d --network host --name $REPO_NAME ghcr.io/${{ github.repository }}:${{ github.ref_name }}-${{ github.run_id }}
