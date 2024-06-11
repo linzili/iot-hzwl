@@ -27,6 +27,8 @@ jobs:
           name: build-artifacts
           path: iot-server/build/libs/iot-server.jar
   release:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     needs: build
     steps:
