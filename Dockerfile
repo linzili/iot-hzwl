@@ -1,4 +1,4 @@
-FROM hanzhenyun.com:30080/hzwl/skywalking-agent-jdk21:1.1
+FROM ghcr.io/linzili/skywalking-agent-jdk21:1.1.0
 
 MAINTAINER 1983160303@qq.com
 
