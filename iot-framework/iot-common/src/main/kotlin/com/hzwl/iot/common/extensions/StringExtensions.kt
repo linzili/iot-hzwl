@@ -15,3 +15,14 @@ fun String.fromHexString(): String {
         .toByteArray()
     return String(hexBytes)
 }
+
+
+fun String.hexStringToByteArray(): ByteArray {
+    val len = this.length
+    require(len % 2 == 0) { "Hex string must have an even length" }
+
+    return ByteArray(len / 2) { i ->
+        val index = i * 2
+        ((this[index].hexToInt() shl 4) + this[index + 1].hexToInt()).toByte()
+    }
+}
