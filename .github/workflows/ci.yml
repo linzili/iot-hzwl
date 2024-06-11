@@ -119,4 +119,5 @@ jobs:
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
             docker pull ghcr.io/${{ github.repository }}:${{ github.ref_name }}-${{ github.run_id }}
             if [ $(docker ps -q -f name=$REPO_NAME) ]; then docker rm -f $REPO_NAME; fi
+            if [ -n "$(docker ps -q -f name=$REPO_NAME)" ]; then docker rm -f $REPO_NAME; fi
             docker run -d --network host --name $REPO_NAME ghcr.io/${{ github.repository }}:${{ github.ref_name }}-${{ github.run_id }}
