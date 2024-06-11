@@ -13,7 +13,7 @@ body:
     attributes:
       value: |
         ## First of all
-        1. Please search for [existing issues](https://github.com/linzili/iot-hzwl-web/issues) about this problem first.
+        1. Please search for [existing issues](https://github.com/linzili/iot-hzwl/issues) about this problem first.
 
   - type: textarea
     id: description
@@ -43,7 +43,7 @@ body:
     id: info
     attributes:
       label: 日志输出
-      description: 'Output of `npm run tauri info` or `cargo tauri info`'
+      description: 'Output of `java -jar iot-server.jar`'
       render: text
     validations:
       required: true
