@@ -42,7 +42,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
-          path: iot-server/build/libs/iot-server.jar
+          path: iot-server/build/libs
+
+      - name: Check if JAR exists after download
+        run: ls -l iot-server/build/libs
 
       - name: Read changelog for current version
         id: changelog
