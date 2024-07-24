@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://47.105.217.81:3306/hz-iot
+    url: jdbc:mysql://w.hanzhenyun.com:3306/hz-iot
     username: root
-    password: 7a23e9919540fce3
+    password: 22679efeb857e31f
     hikari:
       keepalive-time: 60000
       connection-test-query: select 1
@@ -26,4 +26,4 @@ mybatis-flex:
 iot:
   tools:
     network-debugger:
-      ip: hze2.com
+      ip: w.hanzhenyun.com
