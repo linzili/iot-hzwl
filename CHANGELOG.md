@@ -1,3 +1,13 @@
+## [v0.1.4](https://github.com/linzili/iot-hzwl/compare/v0.1.3...v0.1.4)
+
+### features
+
+- 租户管理
+  - 租户套餐管理增删改查
+  - 租户管理增删改查
+- 用户管理
+  - 用户增删改查
+
 ## [v0.1.3](https://github.com/linzili/iot-hzwl/compare/v0.1.2...v0.1.3)
 
 ### features
