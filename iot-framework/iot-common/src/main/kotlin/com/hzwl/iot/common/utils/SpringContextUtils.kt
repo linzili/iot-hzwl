@@ -4,13 +4,12 @@ import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.ApplicationEventPublisherAware
-import org.springframework.stereotype.Component
 
 /**
  * SpringContext工具类
  * @author lin
  */
-@Component
+@Deprecated(message = "已改为其他方式")
 class SpringContextUtils : ApplicationContextAware, ApplicationEventPublisherAware {
     /**
      * Set the ApplicationContext that this object runs in.

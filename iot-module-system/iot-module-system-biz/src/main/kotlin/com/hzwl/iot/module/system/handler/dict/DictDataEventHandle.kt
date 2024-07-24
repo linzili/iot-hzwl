@@ -7,7 +7,7 @@ import com.hzwl.iot.framework.mybatis.extensions.selectOneByQueryAs
 import com.hzwl.iot.framework.mybatis.extensions.update
 import com.hzwl.iot.module.system.dal.entity.dict.DictData
 import com.hzwl.iot.module.system.dal.entity.dict.DictType
-import com.hzwl.iot.module.system.enums.ErrorCodeConstants
+import com.hzwl.iot.module.system.enums.ErrorCodeConstants.DICT_TYPE_HAS_CHILDREN
 import com.mybatisflex.kotlin.extensions.kproperty.eq
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
@@ -27,7 +27,7 @@ class DictDataEventHandle {
     @EventListener(condition = "#event.entityType == T(com.hzwl.iot.module.system.dal.entity.dict.DictType)")
     fun handleDeleteDictType(event: EntityDeleteEvent<DictType>) {
         if (DictData.selectCountByCondition(DictData::dictType eq event.entity.type) > 0) {
-            throw exception(ErrorCodeConstants.DICT_TYPE_HAS_CHILDREN)
+            throw exception(DICT_TYPE_HAS_CHILDREN)
         }
     }
 

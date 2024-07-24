@@ -2,6 +2,7 @@ package com.hzwl.iot.framework.mybatis.handler
 
 import com.hzwl.iot.common.exception.ServiceException
 import com.hzwl.iot.common.exception.enums.GlobalErrorCodeConstants
+import com.hzwl.iot.common.extensions.log
 import com.hzwl.iot.common.pojo.R
 import org.apache.ibatis.builder.BuilderException
 import org.mybatis.spring.MyBatisSystemException
@@ -25,6 +26,7 @@ class MybatisExceptionHandle {
      */
     @ExceptionHandler(value = [MyBatisSystemException::class])
     fun myBatisSystemExceptionHandler(ex: MyBatisSystemException): R<Nothing> {
+        log.error("[mybatis] 错误请求:", ex)
         (ex.cause as? BuilderException)?.cause
             ?.takeIf { it is InvocationTargetException }
             ?.let { it as InvocationTargetException }

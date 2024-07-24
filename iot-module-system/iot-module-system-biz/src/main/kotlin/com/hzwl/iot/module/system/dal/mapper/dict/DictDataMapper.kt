@@ -14,6 +14,7 @@ import com.mybatisflex.kotlin.extensions.condition.allAnd
 import com.mybatisflex.kotlin.extensions.db.filterOne
 import com.mybatisflex.kotlin.extensions.kproperty.eq
 import com.mybatisflex.kotlin.extensions.kproperty.unaryPlus
+import com.mybatisflex.kotlin.extensions.wrapper.andAll
 import org.apache.ibatis.annotations.Mapper
 
 @Mapper
@@ -54,15 +55,15 @@ interface DictDataMapper : BaseMapper<DictData> {
      * @param pageReqVo
      * @return 字典数据
      */
-    fun selectPage(pageReqVo: DictDataPageReqVo): PageResult<DictDataRespVO> {
-        return paginateAs<DictDataRespVO>(pageReqVo) {
-            allAnd(
+    fun selectPage(pageReqVo: DictDataPageReqVo): PageResult<DictDataRespVO> =
+        paginateAs<DictDataRespVO>(pageReqVo) {
+            andAll(
                 DictData::dictType eq pageReqVo.dictType,
                 DictData::status eq pageReqVo.status,
                 DictData::label like pageReqVo.label
             )
-            orderBy(+DictData::dictType, +DictData::sort)
+            orderBy(+DictData::sort)
         }
-    }
+
 
 }

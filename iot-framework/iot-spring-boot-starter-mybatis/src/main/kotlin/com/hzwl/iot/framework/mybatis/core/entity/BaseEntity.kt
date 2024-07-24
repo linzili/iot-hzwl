@@ -10,9 +10,6 @@ import java.time.LocalDateTime
  * @author lin
  */
 open class BaseEntity(
-
-
-
     @Column(comment = "创建者")
     var creator: String? = null,
 
@@ -22,7 +19,7 @@ open class BaseEntity(
     @Column(comment = "更新者")
     var updater: String? = null,
 
-    @Column(comment = "更新时间", onUpdateValue = "now()")
+    @Column(comment = "更新时间", onInsertValue = "now()", onUpdateValue = "now()")
     val updateTime: LocalDateTime? = null,
 
     @Column(comment = "是否删除")

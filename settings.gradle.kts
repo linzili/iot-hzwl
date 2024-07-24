@@ -30,6 +30,9 @@ findProject(":iot-framework:iot-spring-boot-starter-security")?.name = "iot-spri
 include("iot-framework:iot-spring-boot-starter-mybatis")
 findProject(":iot-framework:iot-spring-boot-starter-mybatis")?.name = "iot-spring-boot-starter-mybatis"
 
+include("iot-framework:iot-spring-boot-starter-redis")
+findProject(":iot-framework:iot-spring-boot-starter-redis")?.name = "iot-spring-boot-starter-redis"
+
 include("iot-framework:iot-spring-boot-starter-web")
 findProject(":iot-framework:iot-spring-boot-starter-web")?.name = "iot-spring-boot-starter-web"
 

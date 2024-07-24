@@ -6,7 +6,18 @@ spring:
     hikari:
       keepalive-time: 60000
       connection-test-query: select 1
-
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 10
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1ms
+          max-idle: 8
+          min-idle: 1
+      timeout: PT10S
 mybatis-flex:
   configuration:
     log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl

@@ -7,7 +7,7 @@ spring:
   main:
     banner-mode: off
   profiles:
-    active: dev
+    active: prod
 mybatis-flex:
   global-config:
     print-banner: false
@@ -20,3 +20,7 @@ springdoc:
     - group: "device-module"
       paths-to-match:
         - "/device-manager/**"
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
