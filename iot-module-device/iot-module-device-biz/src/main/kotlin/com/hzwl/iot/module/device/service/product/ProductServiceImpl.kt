@@ -65,7 +65,7 @@ class ProductServiceImpl(
 
         if (category != null) product.categoryName = category.name else product.categoryName = null
 
-        return updateById(product, false)
+        return updateById(product)
     }
 
     /**
