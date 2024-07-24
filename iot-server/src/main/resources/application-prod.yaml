@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://hanzhenyun.com:3306/hz-iot
+    url: jdbc:mysql://47.105.217.81:3306/hz-iot
     username: root
-    password: 22679efeb857e31f
+    password: 7a23e9919540fce3
     hikari:
       keepalive-time: 60000
       connection-test-query: select 1
