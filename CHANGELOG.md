@@ -1,3 +1,8 @@
+## [v0.1.1](https://github.com/linzili/iot-hzwl/compare/v0.1.0...v0.1.1)
+
+### Change
+- 修改部署域名为hze2.com
+
 ## [v0.1.0](https://github.com/linzili/iot-hzwl/releases/tag/v0.1.0)
 
 ### Features
