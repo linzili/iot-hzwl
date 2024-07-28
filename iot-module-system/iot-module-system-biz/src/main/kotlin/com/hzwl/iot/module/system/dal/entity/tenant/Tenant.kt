@@ -24,7 +24,7 @@ data class Tenant(
     /**
      * 联系人用户编号
      */
-    val contactUserId: Long,
+    var contactUserId: Long,
 
     /**
      * 联系人名称

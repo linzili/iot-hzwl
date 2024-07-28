@@ -39,6 +39,9 @@ findProject(":iot-framework:iot-spring-boot-starter-web")?.name = "iot-spring-bo
 include("iot-framework:iot-spring-boot-starter-websocket")
 findProject(":iot-framework:iot-spring-boot-starter-websocket")?.name = "iot-spring-boot-starter-websocket"
 
+include("iot-framework:iot-spring-boot-starter-biz-tenant")
+findProject(":iot-framework:iot-spring-boot-starter-biz-tenant")?.name = "iot-spring-boot-starter-biz-tenant"
+
 include("iot-framework:iot-tools")
 findProject(":iot-framework:iot-tools")?.name = "iot-tools"
 

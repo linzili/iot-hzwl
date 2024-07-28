@@ -3,14 +3,18 @@ package com.hzwl.iot.module.system.service.tenant
 import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.common.exception.util.ServiceExceptionUtil.exception
 import com.hzwl.iot.common.extensions.convert
+import com.hzwl.iot.common.extensions.log
 import com.hzwl.iot.common.pojo.PageResult
 import com.hzwl.iot.framework.mybatis.extensions.selectListByConditionAs
+import com.hzwl.iot.framework.tenant.core.util.TenantUtils.withTenant
 import com.hzwl.iot.module.system.controller.tenant.vo.tenant.TenantPageReqVO
 import com.hzwl.iot.module.system.controller.tenant.vo.tenant.TenantRespVO
 import com.hzwl.iot.module.system.controller.tenant.vo.tenant.TenantSaveReqVO
 import com.hzwl.iot.module.system.controller.tenant.vo.tenant.TenantSimpleRespVO
+import com.hzwl.iot.module.system.controller.users.vo.UserSaveReqVO
 import com.hzwl.iot.module.system.dal.entity.tenant.Tenant
 import com.hzwl.iot.module.system.dal.mapper.tenant.TenantMapper
+import com.hzwl.iot.module.system.enums.ErrorCodeConstants.CAN_NOT_UPDATE_SYSTEM_TENANT
 import com.hzwl.iot.module.system.enums.ErrorCodeConstants.TENANT_NAME_DUPLICATE
 import com.hzwl.iot.module.system.enums.ErrorCodeConstants.TENANT_NOT_EXISTS
 import com.hzwl.iot.module.system.enums.ErrorCodeConstants.TENANT_WEBSITE_DUPLICATE
@@ -25,6 +29,11 @@ class TenantServiceImpl(
     private val userService: UserService,
 ) : ServiceImpl<TenantMapper, Tenant>(), TenantService {
 
+    private fun createUser(roleId: Long, createReqVo: TenantSaveReqVO): Long {
+        val userId = userService.createUser(convert(createReqVo, UserSaveReqVO::class.java))
+        log.info("创建租户：用户id为 ${userId}")
+        return userId
+    }
 
     /**
      * 创建租户
@@ -34,12 +43,17 @@ class TenantServiceImpl(
      */
     override fun createTenant(createReqVo: TenantSaveReqVO): Long {
         validateTenantNameUnique(null, createReqVo.name!!)
-        validateUserExists(createReqVo.contactUserId!!)
         validateTenantWebsiteUnique(null, createReqVo.website!!)
-        tenantPackageService.validateTenantPackageExists(createReqVo.packageId)
+        val tenantPackage = tenantPackageService.validateTenantPackage(createReqVo.packageId!!)
         val tenant = convert(createReqVo, Tenant::class.java)
         tenant.id = null
         save(tenant)
+        withTenant(tenant.id!!) {
+            val userId = createUser(1L, createReqVo)
+            tenant.contactUserId = userId
+            updateById(tenant)
+        }
+
         return tenant.id!!
     }
 
@@ -51,10 +65,12 @@ class TenantServiceImpl(
      */
     override fun updateTenant(updateReqVo: TenantSaveReqVO): Boolean {
         validateTenantExists(updateReqVo.id)
+        if (updateReqVo.packageId == 0L) {
+            throw exception(CAN_NOT_UPDATE_SYSTEM_TENANT)
+        }
         validateTenantNameUnique(updateReqVo.id, updateReqVo.name!!)
-        validateUserExists(updateReqVo.contactUserId!!)
         validateTenantWebsiteUnique(updateReqVo.id, updateReqVo.website!!)
-        tenantPackageService.validateTenantPackageExists(updateReqVo.packageId)
+        tenantPackageService.validateTenantPackage(updateReqVo.packageId!!)
 
         val tenant = convert(updateReqVo, Tenant::class.java)
 
@@ -68,8 +84,10 @@ class TenantServiceImpl(
      * @return 是否成功
      */
     override fun deleteTenant(id: Long): Boolean {
-        validateTenantExists(id)
-
+        val tenant = validateTenantExists(id)
+        if (tenant.packageId == 0L) {
+            throw exception(CAN_NOT_UPDATE_SYSTEM_TENANT)
+        }
         return removeById(id)
     }
 
@@ -124,6 +142,7 @@ class TenantServiceImpl(
             if (tenant.id != id) throw exception(TENANT_WEBSITE_DUPLICATE)
         }
 
+    @Deprecated("无需校验")
     private fun validateUserExists(userId: Long) {
         userService.validateUserExists(userId)
     }

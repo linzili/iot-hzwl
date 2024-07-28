@@ -30,10 +30,12 @@ object ErrorCodeConstants {
     val TENANT_WEBSITE_DUPLICATE = ErrorCode(1002008002, "租户域名重复")
     val TENANT_NOT_EXISTS = ErrorCode(1002008003, "租户不存在")
     val TENANT_PACKAGE_HAS_TENANT = ErrorCode(1002008004, "无法删除，该租户套餐下存在租户")
+    val CAN_NOT_UPDATE_SYSTEM_TENANT = ErrorCode(1002008005, "系统租户不能进行修改、删除等操作！")
 
     // ========== 租户套餐 1-002-009-000 ==========
     val TENANT_PACKAGE_NOT_EXISTS = ErrorCode(1002009001, "租户套餐不存在")
     val TENANT_PACKAGE_NAME_DUPLICATE = ErrorCode(1002009002, "租户套餐名称重复")
+    val TENANT_PACKAGE_DISABLE= ErrorCode(1002009003, "名字为【{}】的租户套餐已被禁用")
 
 
 }

@@ -58,11 +58,11 @@ interface TenantPackageService : IService<TenantPackage> {
     fun getTenantPackageById(id: Long): TenantPackage
 
     /**
-     * 校验租户套餐是否存在
+     * 校验租户套餐
      *
      * @param id 租户套餐编号
      */
-    fun validateTenantPackageExists(id: Long?): TenantPackage
+    fun validateTenantPackage(id: Long): TenantPackage
 
 
 }

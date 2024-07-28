@@ -13,6 +13,7 @@ import com.hzwl.iot.module.system.controller.tenant.vo.packages.TenantPackageSav
 import com.hzwl.iot.module.system.controller.tenant.vo.packages.TenantPackageSimpleRespVO
 import com.hzwl.iot.module.system.dal.entity.tenant.TenantPackage
 import com.hzwl.iot.module.system.dal.mapper.tenant.TenantPackageMapper
+import com.hzwl.iot.module.system.enums.ErrorCodeConstants.TENANT_PACKAGE_DISABLE
 import com.hzwl.iot.module.system.enums.ErrorCodeConstants.TENANT_PACKAGE_NAME_DUPLICATE
 import com.hzwl.iot.module.system.enums.ErrorCodeConstants.TENANT_PACKAGE_NOT_EXISTS
 import com.mybatisflex.kotlin.extensions.kproperty.eq
@@ -44,7 +45,7 @@ class TenantPackageServiceImpl : ServiceImpl<TenantPackageMapper, TenantPackage>
      * @return 是否成功
      */
     override fun updateTenantPackage(updateReqVo: TenantPackageSaveReqVO): Boolean {
-         validateTenantPackageExists(updateReqVo.id)
+        validateTenantPackageExists(updateReqVo.id)
         validateTenantPackageNameUnique(updateReqVo.id, updateReqVo.name!!)
 
         val tenantPackage = convert(updateReqVo, TenantPackage::class.java)
@@ -94,13 +95,25 @@ class TenantPackageServiceImpl : ServiceImpl<TenantPackageMapper, TenantPackage>
     override fun getTenantPackageById(id: Long): TenantPackage =
         getById(id) ?: throw exception(TENANT_PACKAGE_NOT_EXISTS)
 
+    /**
+     * 校验租户套餐
+     *
+     * @param id 租户套餐编号
+     */
+    override fun validateTenantPackage(id: Long): TenantPackage =
+        mapper.selectOneById(id)?.let {
+            if (it.status == CommonStatusEnum.DISABLE)
+                throw exception(TENANT_PACKAGE_DISABLE, it.name)
+            it
+        } ?: throw exception(TENANT_PACKAGE_NOT_EXISTS)
+
 
     /**
      * 校验租户套餐是否存在
      *
      * @param id 租户套餐编号
      */
-    override fun validateTenantPackageExists(id: Long?): TenantPackage =
+    fun validateTenantPackageExists(id: Long?): TenantPackage =
         id?.let { getById(id) } ?: throw exception(TENANT_PACKAGE_NOT_EXISTS)
 
     private fun validateTenantPackageNameUnique(id: Long?, name: String) =

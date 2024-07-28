@@ -23,7 +23,7 @@ repositories {
 
 ext {
     set("mybatis-flex.version", "1.9.4")
-    set("mybatis-flex-kotlin.version", "1.1.0")
+    set("mybatis-flex-kotlin.version", "1.1.1")
     set("mapstruct-plus.version", "1.4.3")
     set("springdoc.version", "2.6.0")
     set("hutool.version", "5.8.27")
