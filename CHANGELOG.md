@@ -1,3 +1,15 @@
+## [v0.1.5](https://github.com/linzili/iot-hzwl/compare/v0.1.4...v0.1.5)
+
+### features
+
+- 实现TenantUtils工具，用于操作指定/忽略租户操作
+- 添加租户过滤器，获取租户信息
+- 新增租户逻辑优化：创建租户时创建租户管理员
+- 实现TenantContextHolder 用于存储租户上下文信息
+- 新增iot-spring-boot-starter-biz-tenant 模块
+- 优化新建用户逻辑
+- 字典值改为 Int 类型
+
 ## [v0.1.4](https://github.com/linzili/iot-hzwl/compare/v0.1.3...v0.1.4)
 
 ### features
