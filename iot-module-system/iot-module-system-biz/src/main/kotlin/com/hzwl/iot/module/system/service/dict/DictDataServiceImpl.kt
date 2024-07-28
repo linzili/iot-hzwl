@@ -120,7 +120,7 @@ class DictDataServiceImpl : ServiceImpl<DictDataMapper, DictData>(), DictDataSer
      * @param dictType 字典数据类型
      * @param value 字典值
      */
-    fun validateDictDataValueUnique(id: Long?, dictType: String, value: String) {
+    fun validateDictDataValueUnique(id: Long?, dictType: String, value: Int) {
         val dictData = mapper.selectByDictTypeAndValue(dictType, value) ?: return
         if (id == null || id != dictData.id) {
             throw exception(DICT_DATA_VALUE_DUPLICATE)

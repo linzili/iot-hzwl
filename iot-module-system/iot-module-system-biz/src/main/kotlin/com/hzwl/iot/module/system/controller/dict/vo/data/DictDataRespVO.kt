@@ -2,6 +2,7 @@ package com.hzwl.iot.module.system.controller.dict.vo.data
 
 import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.module.system.dal.entity.dict.DictData
+import com.hzwl.iot.module.system.dal.enums.dict.ColorType
 import io.github.linpeilie.annotations.AutoMapper
 import io.github.linpeilie.annotations.ReverseAutoMapping
 import io.swagger.v3.oas.annotations.media.Schema
@@ -20,7 +21,7 @@ data class DictDataRespVO(
     val label: String,
 
     @Schema(description = "字典值", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    val value: String,
+    val value: Int,
 
     @Schema(description = "字典类型", requiredMode = Schema.RequiredMode.REQUIRED, example = "sys_common_sex")
     val dictType: String,
@@ -28,8 +29,8 @@ data class DictDataRespVO(
     @Schema(description = "状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     val status: CommonStatusEnum,
 
-    @Schema(description = "颜色类型, default、primary、success、warning、danger、info", example = "default")
-    val colorType: String? = null,
+    @Schema(description = "颜色类型, default、primary、success、warning、danger、info", example = "1")
+    val colorType: ColorType? = null,
 
     @Schema(description = "CSS 样式", example = "btn-visible")
     val cssClass: String? = null,

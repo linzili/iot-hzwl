@@ -2,6 +2,7 @@ package com.hzwl.iot.module.system.dal.entity.dict
 
 import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.framework.mybatis.core.entity.BaseEntity
+import com.hzwl.iot.module.system.dal.enums.dict.ColorType
 import com.hzwl.iot.module.system.dal.mapper.dict.DictDataMapper
 import com.mybatisflex.annotation.Id
 import com.mybatisflex.annotation.KeyType
@@ -28,7 +29,7 @@ data class DictData(
     /**
      * 字典键值
      */
-    val value: String,
+    val value: Int,
 
     /**
      * 字典类型
@@ -43,7 +44,7 @@ data class DictData(
     /**
      * 颜色类型, default、primary、success、warning、danger、info
      */
-    val colorType: String? = null,
+    val colorType: ColorType? = null,
 
     /**
      * css 样式

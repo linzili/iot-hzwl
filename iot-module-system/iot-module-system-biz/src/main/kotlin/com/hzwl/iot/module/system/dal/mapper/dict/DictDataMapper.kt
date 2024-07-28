@@ -10,7 +10,6 @@ import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataRespVO
 import com.hzwl.iot.module.system.controller.dict.vo.data.DictDataSimpleRespVO
 import com.hzwl.iot.module.system.dal.entity.dict.DictData
 import com.mybatisflex.core.BaseMapper
-import com.mybatisflex.kotlin.extensions.condition.allAnd
 import com.mybatisflex.kotlin.extensions.db.filterOne
 import com.mybatisflex.kotlin.extensions.kproperty.eq
 import com.mybatisflex.kotlin.extensions.kproperty.unaryPlus
@@ -28,14 +27,11 @@ interface DictDataMapper : BaseMapper<DictData> {
      * @param value
      * @return
      */
-    fun selectByDictTypeAndValue(dictType: String, value: String): DictData? {
-        return filterOne(DictData::id) {
-            allAnd(
-                DictData::dictType eq dictType,
-                DictData::value eq value
-            )
+    fun selectByDictTypeAndValue(dictType: String, value: Int): DictData?  =
+         filterOne(DictData::id) {
+            (DictData::dictType eq dictType)
+                .and(DictData::value eq value)
         }
-    }
 
     /**
      * 获得精简字典数据列表

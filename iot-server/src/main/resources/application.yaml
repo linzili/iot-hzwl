@@ -7,7 +7,7 @@ spring:
   main:
     banner-mode: off
   profiles:
-    active: prod
+    active: dev
 mybatis-flex:
   global-config:
     print-banner: false
