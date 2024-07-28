@@ -3,6 +3,7 @@ package com.hzwl.iot.module.system.controller.users.vo
 import cn.hutool.core.util.ObjectUtil
 import com.hzwl.iot.common.enums.CommonStatusEnum
 import com.hzwl.iot.common.enums.SexEnum
+import com.hzwl.iot.common.validation.Mobile
 import com.hzwl.iot.module.system.dal.entity.users.User
 import io.github.linpeilie.annotations.AutoMapper
 import io.swagger.v3.oas.annotations.media.Schema
@@ -23,14 +24,14 @@ data class UserSaveReqVO(
     @field:Size(min = 4, max = 30, message = "用户账号长度为 4-30 位")
     val username: String?,
 
-    @Schema(description = "密码", requiredMode = REQUIRED, example = "hzwl123")
+    @Schema(description = "密码", example = "hzwl123")
     @field:Size(min = 4, max = 16, message = "密码长度为 4-16 位")
     val password: String?,
 
     @Schema(description = "用户昵称", requiredMode = REQUIRED, example = "张三")
     @field:NotBlank(message = "用户昵称不能为空")
     @field:Size(max = 30, message = "用户昵称长度不能超过30个字符")
-    val nickname: String?,
+    var nickname: String?,
 
     @Schema(description = "邮箱", example = "hzwl@iotsys.com")
     @field:Email(message = "邮箱格式不正确")
@@ -39,8 +40,8 @@ data class UserSaveReqVO(
 
     @Schema(description = "手机号码", requiredMode = REQUIRED, example = "15601691300")
     @field:NotBlank(message = "手机号码不能为空")
-    @field:Size(min = 11, max = 11, message = "手机号码格式不正确")
-    val phone: String?,
+    @field:Mobile
+    var phone: String?,
 
     @Schema(description = "用户状态（0正常 1停用）", requiredMode = REQUIRED, example = "1")
     @field:NotNull(message = "用户状态不能为空")

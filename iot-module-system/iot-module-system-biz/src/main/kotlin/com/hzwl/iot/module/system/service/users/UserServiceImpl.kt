@@ -38,7 +38,11 @@ class UserServiceImpl(
         validateUserPhoneUnique(null, createReqVo.phone!!)
 
         val user = convert(createReqVo, User::class.java)
+
         user.password = passwordEncoder.encode(user.password)
+
+        if(user.sex == null) user.sex = SexEnum.UNKNOWN
+
         user.id = null
         save(user)
         return user.id!!
@@ -58,7 +62,6 @@ class UserServiceImpl(
         user.password?.let {
             user.password = passwordEncoder.encode(it)
         }
-        if(user.sex == null) user.sex = SexEnum.UNKNOWN
         return updateById(user)
     }
 
