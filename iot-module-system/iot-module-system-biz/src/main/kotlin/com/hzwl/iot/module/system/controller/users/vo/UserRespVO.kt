@@ -14,25 +14,25 @@ import java.time.LocalDateTime
 data class UserRespVO(
 
     @Schema(description = "用户编号", requiredMode = REQUIRED, example = "1024")
-    val id: Long? = null,
+    val id: Long,
 
     @Schema(description = "用户账号", requiredMode = REQUIRED, example = "hzwl")
-    val username: String?,
+    val username: String,
 
     @Schema(description = "用户昵称", requiredMode = REQUIRED, example = "张三")
-    val nickname: String?,
+    val nickname: String,
 
     @Schema(description = "邮箱", example = "hzwl@iotsys.com")
     val email: String?,
 
     @Schema(description = "手机号码", requiredMode = REQUIRED, example = "15601691300")
-    val phone: String?,
+    val phone: String,
 
     @Schema(description = "用户状态（0正常 1停用）", requiredMode = REQUIRED, example = "1")
-    val status: CommonStatusEnum?,
+    val status: CommonStatusEnum,
 
     @Schema(description = "用户性别（0男 1女 2未知）", requiredMode = REQUIRED, example = "1")
-    val sex: SexEnum?,
+    val sex: SexEnum,
 
     @Schema(description = "头像", example = "hzwl.png")
     val avatar: String?,

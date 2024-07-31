@@ -4,6 +4,7 @@ import com.hzwl.iot.common.exception.ErrorCode
 
 object ErrorCodeConstants {
 
+
     // ========== 认证 1-001-001-000 ==========
     val CAPTCHA_CODE_NOT_EXISTS = ErrorCode(1001001001, "验证码错误")
 
@@ -12,7 +13,23 @@ object ErrorCodeConstants {
     val USER_NAME_DUPLICATE = ErrorCode(1001002002, "用户名重复")
     val USER_PHONE_DUPLICATE = ErrorCode(1001002003, "用户手机号重复")
 
+    // ========== 角色 1-001-003-000 ==========
+    val ROLE_ADMIN_CODE_ERROR = ErrorCode(1001003001, "编码【{}】不能被使用")
+    val ROLE_NAME_DUPLICATE = ErrorCode(1001003002, "已经存在名为【{}】的角色")
+    val ROLE_CODE_DUPLICATE = ErrorCode(1001003003, "已经存在编码为【{}】的角色")
+    val ROLE_NOT_EXISTS = ErrorCode(1001003004, "角色不存在")
+    val ROLE_CAN_NOT_UPDATE_SYSTEM_TYPE_ROLE = ErrorCode(1001003005, "不能操作类型为系统内置的角色")
 
+
+    // ========== 部门模块 1-002-004-000 ==========
+    val DEPT_NAME_DUPLICATE: ErrorCode = ErrorCode(1002004000, "已经存在该名字的部门")
+    val DEPT_PARENT_NOT_EXITS: ErrorCode = ErrorCode(1002004001, "父级部门不存在")
+    val DEPT_NOT_FOUND: ErrorCode = ErrorCode(1002004002, "当前部门不存在")
+    val DEPT_EXITS_CHILDREN: ErrorCode = ErrorCode(1002004003, "存在子部门，无法删除")
+    val DEPT_PARENT_ERROR: ErrorCode = ErrorCode(1002004004, "不能设置自己为父部门")
+    val DEPT_EXISTS_USER: ErrorCode = ErrorCode(1002004005, "部门中存在员工，无法删除")
+    val DEPT_NOT_ENABLE: ErrorCode = ErrorCode(1002004006, "部门({})不处于开启状态，不允许选择")
+    val DEPT_PARENT_IS_CHILD: ErrorCode = ErrorCode(1002004007, "不能设置自己的子部门为父部门")
     // ========== 字典类型 1-002-006-000 ==========
     val DICT_TYPE_NOT_EXISTS = ErrorCode(1002006001, "当前字典类型不存在")
     val DICT_TYPE_NOT_ENABLE = ErrorCode(1002006002, "字典类型不处于开启状态，不允许选择")
@@ -35,7 +52,7 @@ object ErrorCodeConstants {
     // ========== 租户套餐 1-002-009-000 ==========
     val TENANT_PACKAGE_NOT_EXISTS = ErrorCode(1002009001, "租户套餐不存在")
     val TENANT_PACKAGE_NAME_DUPLICATE = ErrorCode(1002009002, "租户套餐名称重复")
-    val TENANT_PACKAGE_DISABLE= ErrorCode(1002009003, "名字为【{}】的租户套餐已被禁用")
+    val TENANT_PACKAGE_DISABLE = ErrorCode(1002009003, "名字为【{}】的租户套餐已被禁用")
 
 
 }

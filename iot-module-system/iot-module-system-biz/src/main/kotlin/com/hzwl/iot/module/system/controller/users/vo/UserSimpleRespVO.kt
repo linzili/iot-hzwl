@@ -9,9 +9,8 @@ import io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED
 @AutoMapper(target = User::class)
 data class UserSimpleRespVO(
     @Schema(description = "用户编号", requiredMode = REQUIRED, example = "1024")
-    val id: Long? = null,
+    val id: Long,
 
     @Schema(description = "用户昵称", requiredMode = REQUIRED, example = "张三")
-    val nickname: String?,
-
-    )
+    val nickname: String
+)
