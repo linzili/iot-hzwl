@@ -43,6 +43,7 @@ class JacksonObjectMapper : ObjectMapper() {
             )
 
             .addSerializer(BigInteger::class.java, ToStringSerializer.instance)
+            .addSerializer(Long::class.javaObjectType, ToStringSerializer.instance)
             .addSerializer(Long::class.java, ToStringSerializer.instance)
 
             .addSerializer(

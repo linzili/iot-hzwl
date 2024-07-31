@@ -6,6 +6,7 @@ import com.mybatisflex.core.BaseMapper
 import com.mybatisflex.core.query.QueryCondition
 import com.mybatisflex.core.query.QueryOrderBy
 import com.mybatisflex.kotlin.extensions.condition.allAnd
+import com.mybatisflex.kotlin.extensions.condition.emptyCondition
 import com.mybatisflex.kotlin.scope.QueryScope
 import com.mybatisflex.kotlin.scope.UpdateScope
 import com.mybatisflex.kotlin.scope.queryScope
@@ -36,6 +37,10 @@ inline fun <reified R : Any> BaseMapper<*>.selectListByQueryAs(
     init: QueryScope.() -> Unit,
 ): List<R> {
     return selectListByQueryAs(queryScope(init = init), R::class.java)
+}
+
+inline fun <reified R : Any> BaseMapper<*>.selectAllAs(): List<R> {
+    return selectListByConditionAs<R> { emptyCondition() }
 }
 
 /**
@@ -119,7 +124,7 @@ inline fun <reified R> BaseMapper<*>.selectListWithRelationsByQueryAs(
  * @param condition  查询条件
  * @return 数据列表
  */
-inline fun <reified R> BaseMapper<*>.selectListWithRelationsByQueryAs(
+inline fun <reified R> BaseMapper<*>.selectListWithRelationsByConditionAs(
     vararg condition: QueryCondition
 ): List<R> =
     queryScope(init = { where(allAnd(*condition)) }).let { this.selectListWithRelationsByQueryAs(it, R::class.java) }

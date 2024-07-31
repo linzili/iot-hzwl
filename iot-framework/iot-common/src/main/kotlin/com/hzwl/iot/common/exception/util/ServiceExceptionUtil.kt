@@ -11,7 +11,7 @@ object ServiceExceptionUtil {
     }
 
     fun exception(errorCode: ErrorCode, vararg params: Any?): ServiceException {
-        return exception0(errorCode.code, errorCode.message, params)
+        return exception0(errorCode.code, errorCode.message, *params)
     }
 
     fun exception0(code: Int, messagePattern: String, vararg params: Any?): ServiceException {

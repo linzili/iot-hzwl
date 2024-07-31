@@ -33,6 +33,9 @@ data class UserSaveReqVO(
     @field:Size(max = 30, message = "用户昵称长度不能超过30个字符")
     var nickname: String?,
 
+    @Schema(description = "部门编号", example = "1024")
+    val deptId: Long?,
+
     @Schema(description = "邮箱", example = "hzwl@iotsys.com")
     @field:Email(message = "邮箱格式不正确")
     @field:Size(max = 50, message = "邮箱长度不能超过 50 个字符")

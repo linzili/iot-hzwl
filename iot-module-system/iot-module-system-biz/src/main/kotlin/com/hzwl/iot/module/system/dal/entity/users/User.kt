@@ -32,6 +32,11 @@ data class User(
      * 备注
      */
     val remark: String?,
+
+    /**
+     * 部门编号
+     */
+    val deptId: Long?,
     /**
      * 邮箱
      */
